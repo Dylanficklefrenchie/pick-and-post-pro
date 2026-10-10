@@ -22,7 +22,11 @@ Sources copied:
 - `pages/penelope` ← `/workspace/pickpost-lifequotes-penelope/site`
 - `pages/reginald` ← `/workspace/pickpost-lifequotes-reginald/site`
 - `pages/wheelie` ← `/workspace/pickpost-lifequotes-wheelie/site`
-- `welcome/index.html` ← `/workspace/pickpost-welcome-preview/index.html` (Page 1 welcome / first-time setup PREVIEW; the root `index.html` is still the picker)
+- `welcome/index.html` ← `/workspace/pickpost-welcome-preview/index.html` (older Page 1 preview, unchanged by the v3 rollout)
+- THEME v3 LIVE (Dylan approved 10 Oct 2026 10:22 AM ET): `theme.css` + `fonts/` (Cinzel, EB Garamond, OFL) at the site root ← `/workspace/pickpost-theme/site/`; root `index.html` is the themed BRAND picker (no affiliate/referral step)
+- `affiliate/index.html` ← `/workspace/pickpost-affiliate/index.html` (AFFILIATE Page 1 welcome = theme-preview/welcome, referral link save/edit) → `affiliate/picker/` ← `/workspace/pickpost-affiliate/picker/index.html` (picker with gear); `affiliate/picker/characters.json` is generated from the root list
+- `pages/theme-pages.css` ← `/workspace/pickpost-theme/pages/theme-pages.css` (character pages restyle: colours/fonts only; each template links `../theme-pages.css`)
+- Revert copies: `/workspace/pickpost-theme/rollout/backup-pre-rollout-20261010-1030/` (pre-rollout sources, tests, redeploy.sh); live state before rollout = git commit 349839a
 - `theme-preview/` ← `/workspace/pickpost-theme/site/` (branding PREVIEW: Page 2 picker at `theme-preview/`, Page 1 at `theme-preview/welcome/`; own `characters.json` with optional `title`, paths relative to `theme-preview/`; Open Sans self-hosted in `theme-preview/fonts/`, OFL)
 
 ## Add a character
