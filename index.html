@@ -25,9 +25,9 @@ body{padding-top:10px;padding-bottom:12px}
 #tiRow{margin:3px 0 0}
 #tiRow .fa{width:40px}
 #ti{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-dark)}
-#nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:9px 0 0}
-#count{font-size:15px;color:var(--ink);text-align:center}
-#count i{font-style:italic}
+#nav{display:flex;align-items:center;justify-content:space-between;gap:5px;margin:9px 0 0}
+#count{font-size:15px;color:var(--ink);text-align:center;white-space:nowrap;min-width:0;overflow:hidden}
+#count i{font-style:italic;font-weight:500;font-size:1.167em;color:var(--crimson)}  /* Dylan 11:01 AM: swipe hint crimson + larger (17.5px at the 15px counter); row auto-shrinks only if it would not fit */
 #open{margin:12px 0 0;font-size:21px;padding:16px 12px}
 </style><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><meta name="apple-mobile-web-app-title" content="Pick &amp; Post Pro"></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -63,7 +63,7 @@ function render(i){
   b.innerHTML = ''; b.appendChild(document.createTextNode('Choose ' + c.name + ' '));
   b.insertAdjacentHTML('beforeend', '<svg class="arrow" viewBox="0 0 22 16" aria-hidden="true"><path d="M1.5 8h18M13.5 2l6 6-6 6"/></svg>');
   b.href = c.page; b.classList.remove('off');
-  fitText($('nm'), 36, 20); b.style.fontSize = ''; fitText(b, 21, 14);
+  fitText($('nm'), 36, 20); b.style.fontSize = ''; fitText(b, 21, 14); fitText($('count'), 15, 10);
 }
 function settle(){ clearTimeout(timer); scrolling = false; render(nearest()); }
 function onScroll(){ if(!scrolling){ scrolling = true; $('open').classList.add('off'); } clearTimeout(timer); timer = setTimeout(settle, 120); }
@@ -75,7 +75,7 @@ car.addEventListener('touchend', function(){ if(scrolling){ clearTimeout(timer);
 /* size the portrait so the Choose button is visible without scrolling (works down to a 390x664 Safari viewport) */
 function fitText(e, max, min){ var s = max; e.style.fontSize = s + 'px'; while(e.scrollWidth > e.clientWidth && s > min){ s--; e.style.fontSize = s + 'px'; } }
 function fit(){
-  fitText($('t1'), 31, 18); if(cur >= 0) fitText($('nm'), 36, 20); $('open').style.fontSize = ''; fitText($('open'), 21, 14);
+  fitText($('t1'), 31, 18); if(cur >= 0){ fitText($('nm'), 36, 20); fitText($('count'), 15, 10); } $('open').style.fontSize = ''; fitText($('open'), 21, 14);
   frame.style.width = '100%';
   var full = frame.clientWidth, h = window.innerHeight, others = document.body.scrollHeight - frame.offsetHeight;
   var avail = h - others - 2;            /* height left for the framed portrait */
