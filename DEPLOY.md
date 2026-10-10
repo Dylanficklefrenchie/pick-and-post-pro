@@ -23,6 +23,7 @@ Sources copied:
 - `pages/reginald` ← `/workspace/pickpost-lifequotes-reginald/site`
 - `pages/wheelie` ← `/workspace/pickpost-lifequotes-wheelie/site`
 - `welcome/index.html` ← `/workspace/pickpost-welcome-preview/index.html` (Page 1 welcome / first-time setup PREVIEW; the root `index.html` is still the picker)
+- `theme-preview/` ← `/workspace/pickpost-theme/site/` (branding PREVIEW: Page 2 picker at `theme-preview/`, Page 1 at `theme-preview/welcome/`; own `characters.json` with optional `title`, paths relative to `theme-preview/`; Open Sans self-hosted in `theme-preview/fonts/`, OFL)
 
 ## Add a character
 

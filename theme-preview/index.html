@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Pick &amp; Post Pro — Choose your Frenchie</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+body{padding-top:10px;padding-bottom:12px}
+#bar{display:flex;align-items:center;gap:10px;margin:0 0 6px}
+#bar img{width:46px;height:46px;border-radius:11px;border:1px solid var(--gold);box-shadow:0 1px 3px rgba(48,43,37,.2);flex:0 0 auto}
+#bar .t{flex:1;min-width:0}
+#bar .t1{font-size:22px;line-height:1.05;margin:0;letter-spacing:.03em;white-space:nowrap}
+#bar .t2{font-size:14px;letter-spacing:.12em;margin:1px 0 0}
+#bar .sep{width:1px;height:30px;background:var(--gold-soft)}
+#gear{background:none;border:0;padding:6px;margin:-6px -6px -6px 0;cursor:pointer;line-height:0}
+#gear svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:1.5}
+#panel{margin:4px 0 8px;padding:14px 12px 10px}
+#panel h2{font-size:16px;letter-spacing:.08em;margin:0 0 8px;text-align:center;color:var(--crimson)}
+#panel .x{position:absolute;top:4px;right:6px;background:none;border:0;font-size:22px;color:var(--muted);cursor:pointer;padding:4px 8px}
+#panel #pSave{margin-top:8px}
+#choose{display:flex;align-items:center;justify-content:center;gap:8px;font-size:17px;letter-spacing:.1em;margin:4px 0 8px;color:var(--gold);white-space:nowrap}
+#choose .fl{width:34px;height:10px;stroke:var(--gold);fill:none;stroke-width:1.2;flex:0 0 auto}
+#frame{margin:0 auto;border:1px solid var(--gold);border-radius:14px;padding:3px;background:var(--ivory);box-shadow:0 2px 8px rgba(48,43,37,.15);width:100%}
+#car{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;border-radius:11px;scrollbar-width:none;background:var(--cream)}
+#car::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;width:100%;aspect-ratio:4/5;scroll-snap-align:start;scroll-snap-stop:always}
+.slide img{width:100%;height:100%;object-fit:contain}
+#who{text-align:center;margin:8px 0 0;min-height:42px}
+#nm{font-family:var(--serif);font-size:20px;letter-spacing:.08em;line-height:1.1;margin:0}
+#ti{font-family:var(--serif);font-size:15px;font-style:italic;color:var(--gold);letter-spacing:.04em;margin:2px 0 0}
+#nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0 0}
+#nav button{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--gold);background:var(--ivory);color:var(--text);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;flex:0 0 auto}
+#nav button svg{width:14px;height:14px;stroke:var(--text);fill:none;stroke-width:2}
+#nav button:disabled{opacity:.35}
+#count{font-family:var(--serif);font-size:13.5px;color:var(--text);text-align:center}
+#open{margin:12px 0 0}
+</style><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png"><meta name="apple-mobile-web-app-title" content="Pick &amp; Post Pro"></head><body>
+<header id="bar">
+<img src="../icons/icon-192.png" alt="Pick &amp; Post Pro app icon" width="46" height="46">
+<div class="t"><p class="t1 sc">Pick &amp; Post Pro</p><p class="t2 sc crimson">Pick. Post. Earn.</p></div>
+<span class="sep" aria-hidden="true"></span>
+<button id="gear" aria-label="Settings: your affiliate link" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+</header>
+<div class="card hide" id="panel" role="dialog" aria-label="Your affiliate link">
+<button class="x" id="pClose" aria-label="Close">×</button>
+<h2 class="sc">Your Affiliate Link</h2>
+<div id="pEdit">
+<input id="pLink" class="link" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://ficklefrenchiecoffeeclub.com/?ref=YOURCODE" aria-label="Your affiliate link">
+<p id="pMsg" class="msg" role="status"></p>
+<button class="btn small" id="pSave">Save my link</button>
+</div>
+<div id="pShow" class="hide"><div class="saved"><b>Saved ✓</b><span id="pText"></span></div><div style="text-align:center"><button class="linkbtn" id="pEditBtn">Edit</button></div></div>
+<p class="note" id="pEmpty"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>No referral link saved yet. You can add it any time.</p>
+</div>
+<div id="choose" class="sc"><svg class="fl" viewBox="0 0 34 10" aria-hidden="true"><path d="M1 5h22M23 5l4-3.5 4 3.5-4 3.5z"/></svg>Choose your Frenchie<svg class="fl" viewBox="0 0 34 10" aria-hidden="true"><path d="M33 5H11M11 5 7 1.5 3 5l4 3.5z"/></svg></div>
+<div id="frame"><div id="car" aria-label="Characters"></div></div>
+<div id="who"><p id="nm"></p><p id="ti"></p></div>
+<div id="nav">
+<button id="prev" aria-label="Previous character"><svg viewBox="0 0 14 14"><path d="M9 2 4 7l5 5"/></svg></button>
+<span id="count"></span>
+<button id="next" aria-label="Next character"><svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5"/></svg></button>
+</div>
+<a class="btn off" id="open" href="#">Loading…</a>
+<script>
+/* Characters come from characters.json (name, optional title, portrait, page). Add a character = add one entry. */
+var CHARS = [], car = document.getElementById('car'), frame = document.getElementById('frame'), cur = -1, timer = null, scrolling = false;
+var $ = function(id){ return document.getElementById(id); };
+function slideW(){ return car.clientWidth || 1; }
+function nearest(){ return Math.max(0, Math.min(CHARS.length-1, Math.round(car.scrollLeft / slideW()))); }
+function goTo(i){ if(i < 0 || i >= CHARS.length) return; car.scrollTo({left: i*slideW(), behavior: 'smooth'}); }
+function caps(s){ return s.toLocaleUpperCase('en'); }
+function render(i){
+  cur = i; var c = CHARS[i], b = $('open');
+  $('nm').textContent = caps(c.name);
+  $('ti').textContent = c.title || ''; $('ti').classList.toggle('hide', !c.title);
+  $('count').textContent = (i+1) + ' of ' + CHARS.length + ' • Swipe to discover the Royal Court';
+  $('prev').disabled = (i === 0); $('next').disabled = (i === CHARS.length-1);
+  b.innerHTML = ''; b.appendChild(document.createTextNode('Choose ' + c.name + ' '));  /* .btn renders in small caps, so this shows as CHOOSE SIR WINSTON */
+  var a = document.createElement('span'); a.className = 'arrow'; a.textContent = '→'; b.appendChild(a);
+  b.href = c.page; b.classList.remove('off');
+}
+function settle(){ clearTimeout(timer); scrolling = false; render(nearest()); }
+function onScroll(){ if(!scrolling){ scrolling = true; $('open').classList.add('off'); } clearTimeout(timer); timer = setTimeout(settle, 120); }
+$('prev').addEventListener('click', function(){ goTo((scrolling ? nearest() : cur) - 1); });
+$('next').addEventListener('click', function(){ goTo((scrolling ? nearest() : cur) + 1); });
+car.addEventListener('scroll', onScroll, {passive:true});
+if('onscrollend' in window) car.addEventListener('scrollend', settle);
+car.addEventListener('touchend', function(){ if(scrolling){ clearTimeout(timer); timer = setTimeout(settle, 120); } }, {passive:true});
+/* size the portrait so the Choose button is visible without scrolling (works down to a 390x664 Safari viewport) */
+function fit(){
+  frame.style.width = '100%';
+  var full = frame.clientWidth, h = window.innerHeight, others = document.body.scrollHeight - frame.offsetHeight;
+  var avail = h - others - 2;            /* height left for the framed portrait */
+  var w = Math.max(200, Math.min(full, Math.floor((avail - 8) * 0.8) + 8));
+  frame.style.width = w + 'px';
+  if(cur >= 0) car.scrollLeft = cur * slideW();
+}
+window.addEventListener('resize', fit);
+window.addEventListener('orientationchange', function(){ setTimeout(fit, 200); });
+function build(list){
+  CHARS = list.filter(function(c){ return c && c.name && c.portrait && c.page; });
+  CHARS.forEach(function(c, i){
+    var s = document.createElement('div'); s.className = 'slide';
+    var im = document.createElement('img'); im.src = c.portrait; im.alt = c.name + (c.title ? ', ' + c.title : ''); im.draggable = false;
+    if(i > 1) im.loading = 'lazy';
+    s.appendChild(im); car.appendChild(s);
+  });
+  if(CHARS.length) render(0); else $('open').textContent = 'No characters';
+  fit();
+}
+fetch('characters.json', {cache: 'no-store'}).then(function(r){ return r.json(); }).then(build)
+  .catch(function(){ $('open').textContent = 'Could not load characters'; });
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+/* gear: view / edit the saved affiliate link (same key as Page 1) */
+var KEY_LINK = 'ppp_referral_link';
+function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function set(k, v){ try{ localStorage.setItem(k, v); return true; }catch(e){ return false; } }
+function pShow(){ var l = get(KEY_LINK); $('pEdit').classList.toggle('hide', !!l); $('pShow').classList.toggle('hide', !l); $('pText').textContent = l || ''; $('pEmpty').classList.toggle('hide', !!l); }
+function togglePanel(open){ $('panel').classList.toggle('hide', !open); $('gear').setAttribute('aria-expanded', open ? 'true' : 'false'); if(open){ $('pLink').value = ''; $('pMsg').textContent = ''; pShow(); } fit(); }
+$('gear').addEventListener('click', function(){ togglePanel($('panel').classList.contains('hide')); });
+$('pClose').addEventListener('click', function(){ togglePanel(false); });
+$('pSave').addEventListener('click', function(){
+  var u = $('pLink').value.trim(), m = $('pMsg');
+  if(!/^https?:\/\/\S+$/i.test(u)){ $('pLink').classList.add('bad'); m.className = 'msg err'; m.textContent = 'Please paste your full link, starting with http'; return; }
+  $('pLink').classList.remove('bad'); m.className = 'msg'; m.textContent = '';
+  if(!set(KEY_LINK, u)){ m.className = 'msg err'; m.textContent = 'Could not save on this device'; return; }
+  pShow(); fit();
+});
+$('pLink').addEventListener('input', function(){ $('pLink').classList.remove('bad'); $('pMsg').textContent = ''; });
+$('pEditBtn').addEventListener('click', function(){ $('pLink').value = get(KEY_LINK) || ''; $('pEdit').classList.remove('hide'); $('pShow').classList.add('hide'); fit(); $('pLink').focus(); });
+</script>
+</body></html>

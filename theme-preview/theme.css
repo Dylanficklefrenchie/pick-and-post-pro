@@ -1,0 +1,36 @@
+/* PICK & POST PRO theme PREVIEW (Dylan MASTER LOCK 10 Oct 2026). Headings: Georgia; body/controls: Open Sans (self-hosted, OFL). */
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/open-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/open-sans-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/open-sans-latin-700-normal.woff2) format('woff2')}
+:root{--cream:#FAF5EA;--ivory:#FFFDF8;--crimson:#8F1127;--crimson-dark:#7A0C1E;--gold:#B8913A;--gold-soft:#D9C38E;--text:#302B25;--muted:#6B6257;
+  --serif:Georgia,'Times New Roman',Times,serif;--sans:'Open Sans',-apple-system,system-ui,'Segoe UI',Roboto,Arial,sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0 auto;max-width:520px;padding:14px 16px 18px;background:var(--cream);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.4;overflow-x:hidden}
+img{display:block;max-width:100%}
+.sc{font-family:var(--serif);font-variant:small-caps;letter-spacing:.06em;font-weight:400}
+.gold{color:var(--gold)}.crimson{color:var(--crimson)}
+.fleur{display:inline-block;width:16px;height:16px;fill:var(--gold);vertical-align:middle;flex:0 0 auto}
+.rule{display:flex;align-items:center;gap:8px;margin:8px auto;max-width:240px}
+.rule::before,.rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent)}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 16px;border:1px solid var(--gold);border-radius:12px;
+  background:var(--crimson);color:#FFFFFF;font-family:var(--serif);font-variant:small-caps;letter-spacing:.08em;font-size:21px;line-height:1.1;text-decoration:none;cursor:pointer;
+  box-shadow:0 0 0 2px var(--cream),0 0 0 3px rgba(184,145,58,.55),0 2px 6px rgba(48,43,37,.18);-webkit-tap-highlight-color:transparent}
+.btn:active{background:var(--crimson-dark)}
+.btn.small{font-size:16px;padding:11px 14px;border-radius:9px;box-shadow:none}
+.btn.off{background:#9c8f86;border-color:#c8bba8;pointer-events:none}
+.btn .arrow{font-family:var(--sans);font-variant:normal;font-size:20px;letter-spacing:0}
+.card{position:relative;background:var(--ivory);border:1px solid var(--gold-soft);border-radius:14px;padding:18px 14px 12px;box-shadow:inset 0 0 0 3px var(--ivory),inset 0 0 0 4px rgba(217,195,142,.45)}
+.card .topfleur{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--cream);padding:0 6px;line-height:0}
+input.link{width:100%;font-family:var(--sans);font-size:16px;color:var(--text);padding:11px 12px;border:1px solid #D8CDB8;border-radius:9px;background:#fff}
+input.link::placeholder{color:#8a8176}
+input.link:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(184,145,58,.25)}
+input.link.bad{border:2px solid var(--crimson)}
+.msg{font-size:13px;color:var(--muted);margin:6px 0 0;min-height:0}
+.msg.err{color:var(--crimson)}
+.note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;color:var(--muted);margin:10px 0 0;text-align:center}
+.note svg{width:13px;height:13px;flex:0 0 auto;stroke:var(--muted);fill:none;stroke-width:2}
+.saved{font-size:14px;word-break:break-all;text-align:center}
+.saved b{display:block;font-weight:600;color:var(--crimson);margin:0 0 2px}
+.linkbtn{background:none;border:0;padding:4px 8px;font-family:var(--sans);font-size:13px;color:var(--muted);text-decoration:underline;cursor:pointer}
+.hide{display:none!important}
