@@ -21,7 +21,7 @@ body{padding-top:10px;padding-bottom:12px}
 #panel .x{position:absolute;top:4px;right:6px;background:none;border:0;font-size:24px;color:var(--muted);cursor:pointer;padding:4px 8px}
 #panel #pSave{margin-top:8px}
 #choose{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:.01em;margin:8px 0 9px;color:var(--gold-dark)}
-#choose .fa{width:40px}
+#choose .fa{width:42px;height:12px}
 #frame{margin:0 auto;width:100%}
 #car{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;border-radius:11px;scrollbar-width:none;background:var(--cream)}
 #car::-webkit-scrollbar{display:none}
@@ -38,7 +38,7 @@ body{padding-top:10px;padding-bottom:12px}
 #open{margin:12px 0 0;font-size:21px;padding:16px 12px}
 </style><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png"><meta name="apple-mobile-web-app-title" content="Pick &amp; Post Pro"></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="fa" viewBox="0 0 30 10"><path d="M1 5 6 2.2 4.8 5 6 7.8z" stroke="none"/><path d="M4.5 5H23" fill="none"/><path d="M23 5l2.8-2.2L28.6 5l-2.8 2.2z" stroke="none"/></symbol>
+<symbol id="fa" viewBox="0 0 40 10"><path d="M2 2.5 5 5 2 7.5M5 2.5 8 5 5 7.5" fill="none" stroke-width="1"/><path d="M5 5H33" fill="none"/><path d="M39 5 32 1.8 33.6 5 32 8.2z" stroke="none"/></symbol><symbol id="fo" viewBox="0 0 44 12"><path d="M1 6H14M30 6H43" fill="none"/><path d="M14 6c2-3.6 5.6-3.6 4.6-.6-.6 1.7-3 1.2-2-.6M30 6c-2 3.6-5.6 3.6-4.6.6.6-1.7 3-1.2 2 .6" fill="none" stroke-width="1"/><path d="M22 2.2 25.2 6 22 9.8 18.8 6z" stroke="none"/><circle cx="2" cy="6" r="1.4" stroke="none"/><circle cx="42" cy="6" r="1.4" stroke="none"/></symbol>
 </defs></svg>
 <header id="bar">
 <img src="../icons/icon-192.png" alt="Pick &amp; Post Pro app icon" width="46" height="46">
@@ -57,7 +57,7 @@ body{padding-top:10px;padding-bottom:12px}
 <div id="pShow" class="hide"><div class="saved"><b>Saved ✓</b><span id="pText"></span></div><div style="text-align:center"><button class="linkbtn" id="pEditBtn">Edit</button></div></div>
 <p class="note" id="pEmpty"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>No referral link saved yet. You can add it any time.</p>
 </div>
-<div id="choose" class="flourish"><svg class="fa" aria-hidden="true"><use href="#fa"/></svg>Choose Your Frenchie<svg class="fa" aria-hidden="true" style="transform:scaleX(-1)"><use href="#fa"/></svg></div>
+<div id="choose" class="flourish"><svg class="fa" aria-hidden="true"><use href="#fo"/></svg>Choose Your Frenchie<svg class="fa" aria-hidden="true"><use href="#fo"/></svg></div>
 <div id="frame" class="photo-frame"><div id="car" aria-label="Characters"></div></div>
 <div id="who"><p id="nm" class="name"></p><div id="tiRow" class="flourish"><svg class="fa" aria-hidden="true"><use href="#fa"/></svg><span id="ti"></span><svg class="fa" aria-hidden="true" style="transform:scaleX(-1)"><use href="#fa"/></svg></div></div>
 <div id="nav">
