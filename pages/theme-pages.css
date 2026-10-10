@@ -3,6 +3,7 @@
    Linked after each page's own <style>, so it only overrides looks. Photos stay clean: nothing is drawn on top of them.
    Tokens = DESIGN-SYSTEM.md / theme.css. Fonts self-hosted at the site root (fonts/, OFL). */
 @font-face{font-family:'Cinzel';font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/cinzel-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Cinzel';font-style:normal;font-weight:900;font-display:swap;src:url(../fonts/cinzel-latin-900-normal.woff2) format('woff2')}
 @font-face{font-family:'EB Garamond';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/eb-garamond-latin-400-normal.woff2) format('woff2')}
 @font-face{font-family:'EB Garamond';font-style:italic;font-weight:400;font-display:swap;src:url(../fonts/eb-garamond-latin-400-italic.woff2) format('woff2')}
 @font-face{font-family:'EB Garamond';font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/eb-garamond-latin-500-normal.woff2) format('woff2')}
@@ -11,8 +12,8 @@
   --ink:#1F1B16;--text:#302B25;--muted:#5E554B;--display:'Cinzel',Georgia,'Times New Roman',serif;--body:'EB Garamond',Georgia,'Times New Roman',serif}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--cream);color:var(--text);font-family:var(--body);overflow-x:hidden}
-/* header: Cinzel display, near-black wordmark line, crimson second line (inline colour already #8F1127) */
-h1{font-family:var(--display);font-weight:700;color:var(--ink);letter-spacing:.01em;line-height:1.2}
+/* header: Cinzel display, near-black wordmark */
+h1{font-family:var(--display);font-weight:900;color:var(--ink);letter-spacing:-.025em;line-height:1.2;white-space:nowrap}  /* v3 wordmark style: PICK & POST PRO only (Dylan 10:42 AM: no Life Quotes subheading) */
 #sub{color:var(--muted)}
 /* photo carousel: thin antique-gold frame only (border, no padding, nothing over the photo) */
 #car{border:1.5px solid var(--gold);border-radius:14px;background:var(--ivory);box-shadow:0 2px 8px rgba(48,43,37,.18)}
