@@ -22,6 +22,7 @@ Sources copied:
 - `pages/penelope` ← `/workspace/pickpost-lifequotes-penelope/site`
 - `pages/reginald` ← `/workspace/pickpost-lifequotes-reginald/site`
 - `pages/wheelie` ← `/workspace/pickpost-lifequotes-wheelie/site`
+- `welcome/index.html` ← `/workspace/pickpost-welcome-preview/index.html` (Page 1 welcome / first-time setup PREVIEW; the root `index.html` is still the picker)
 
 ## Add a character
 
