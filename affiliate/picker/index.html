@@ -119,6 +119,7 @@ function build(list){
 fetch('characters.json', {cache: 'no-store'}).then(function(r){ return r.json(); }).then(build)
   .catch(function(){ $('open').textContent = 'Could not load characters'; });
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+if(document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', fit);  /* re-fit when a late font (e.g. the italic swipe hint) arrives */
 /* gear: view / edit the saved affiliate link (same key as Page 1) */
 var KEY_LINK = 'ppp_referral_link';
 function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
