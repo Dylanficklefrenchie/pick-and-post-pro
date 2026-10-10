@@ -54,7 +54,7 @@ p{margin:0}
 .photo-frame{border:1.5px solid var(--gold);border-radius:var(--radius-card);padding:3px;background:var(--ivory);box-shadow:0 2px 8px rgba(48,43,37,.18)}
 /* forms */
 input.link{width:100%;font-family:var(--body);font-size:16px;color:var(--text);padding:10px 12px;border:1px solid #D2C6AF;border-radius:9px;background:#fff}
-input.link::placeholder{color:#6f665b;font-size:14.5px}  /* field text stays 16px (no iOS zoom); placeholder smaller so the full example URL shows */
+input.link::placeholder{color:#6f665b;font-size:14px}  /* field text stays 16px (no iOS zoom); placeholder smaller so the full example URL shows */
 input.link:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(184,145,58,.25)}
 input.link.bad{border:2px solid var(--crimson)}
 .msg{font-size:15px;color:var(--muted);margin:5px 0 0}
