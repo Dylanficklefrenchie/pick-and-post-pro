@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<base href="../../../pages/reginald/"><meta name="robots" content="noindex"><!-- AFFILIATE MODE: generated from pages/reginald/ -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Pick &amp; Post Pro</title>
+<style>
+body{font-family:-apple-system,system-ui,sans-serif;margin:0;padding:16px;background:#faf7f2;color:#222;max-width:520px;margin:auto}
+h1{font-size:18px;margin:4px 0 12px}
+img{width:100%;border-radius:8px;display:block}
+.big{display:block;width:100%;padding:20px;font-size:20px;font-weight:700;border:0;border-radius:12px;background:#8F1127;color:#fff;margin:14px 0}
+.big:disabled{background:#aaa}
+button.sm{padding:10px 14px;font-size:16px;border-radius:8px;border:1px solid #888;background:#fff;margin:6px 6px 6px 0}
+textarea{width:100%;box-sizing:border-box;height:160px;font-size:15px}
+#status{font-size:16px;padding:10px;border-radius:8px;background:#fff;border:1px solid #ddd;margin:0 0 14px}
+#status:empty{display:none}
+.hide{display:none}
+details{margin-top:16px;font-size:12px}pre{white-space:pre-wrap;word-break:break-all;background:#eee;padding:8px}
+/* swipe test additions (minimal) */
+#car{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;border-radius:8px;scrollbar-width:none}
+#car::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;width:100%;aspect-ratio:4/5;scroll-snap-align:start;scroll-snap-stop:always}
+.slide img{width:100%;height:100%;object-fit:contain}
+#nav{display:flex;align-items:center;justify-content:space-between;margin:8px 0 0}
+#nav button.sm{margin:0;min-width:48px;font-size:22px;line-height:1;padding:8px 14px}
+#nav button.sm:disabled{opacity:.35}
+#count{font-size:15px;color:#555}
+#title{font-size:16px;font-weight:700;margin:10px 0 6px}
+#caps label{display:flex;gap:8px;align-items:flex-start;font-size:15px;line-height:1.35;background:#fff;border:1px solid #ddd;border-radius:8px;padding:10px;margin:0 0 8px}
+#caps input{margin-top:3px;flex:0 0 auto}
+#caps label.on,#customTa.on{border:2px solid #8F1127}
+#customLbl{font-size:15px;margin:10px 0 4px}
+#customTa{height:96px;border:1px solid #ddd;border-radius:8px;padding:8px}
+#draftRow{display:flex;align-items:center;justify-content:space-between;font-size:14px;color:#555}
+#draftRow button.sm{padding:6px 12px;font-size:14px}
+/* life quotes additions (minimal) */
+#sub{font-size:13px;color:#555;margin:-8px 0 12px}
+#caps .card{display:block}
+#caps .q{font-weight:400}  /* v5: captions shown as plain text, exactly as Instagram shows them */
+#caps .r{display:block;margin-top:6px}
+#endNote{font-size:14px;color:#555;margin:0 0 8px;line-height:1.35}
+#endText{font-weight:700;color:#222}
+/* v8 (Dylan: "Never do this again"): the photo stays clean. Choices are normal page blocks UNDER the photo, never on it. */
+#car,#nav,#title,#caps,#caps label{position:static!important;transform:none!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;z-index:auto!important}
+#car{flex:none}
+#nav,#title,#caps{clear:both}
+#caps{margin-top:0!important}
+</style>
+<link rel="stylesheet" href="../theme-pages.css"><!-- theme v3 restyle (10 Oct 2026): colours/fonts only -->
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32.png"><meta name="apple-mobile-web-app-title" content="Pick &amp; Post Pro"><link rel="stylesheet" href="../../affiliate/affiliate-mode.css"></head><body>
+<h1>PICK &amp; POST PRO</h1>
+<div id="car" aria-label="Images"></div>
+<div id="nav">
+<button class="sm" id="prev" aria-label="Previous image">‹</button>
+<span id="count"></span>
+<button class="sm" id="next" aria-label="Next image">›</button>
+</div>
+<div id="title"></div>
+<div id="caps" role="radiogroup" aria-label="Quote card choices"></div>
+<p id="endNote">Every caption ends with:<br><span id="endText">I’m not fickle… just a Frenchie.</span></p>
+<p id="customLbl"><strong>OR write your own</strong></p>
+<textarea id="customTa" placeholder="Write your own message… (the ending is added for you)"></textarea>
+<div id="draftRow"><span id="draftNote"></span><button class="sm" id="clearDraft">Clear</button></div>
+<div id="howto" style="font-size:16px;line-height:1.4;margin:14px 0 0">
+<p style="margin:0 0 8px"><strong>Your image is ready. We’ll copy your complete caption when you tap below.</strong></p>
+<p style="margin:0">In Instagram: choose <strong>Post → Next</strong>, then press and hold <strong>“Add a caption…” → Paste</strong>. Add music if you wish, then <strong>Share</strong>.</p>
+</div>
+<button id="post" class="big" disabled>Preparing…</button>
+<div id="status" aria-live="polite"></div>
+<div id="capBox" class="hide">
+  <p>Caption:</p>
+  <textarea id="capTa" readonly></textarea>
+  <button class="sm" id="copyBtn">Copy caption</button>
+</div>
+<div id="recover" class="hide">
+  <button class="sm" id="retry">Try again</button>
+  <a id="save" href="img/reginald01.jpg" download="reginald01.jpg"><button class="sm">Save image</button></a>
+  <p style="font-size:14px">Or long-press the image above and choose “Save to Photos”.</p>
+</div>
+<details><summary>Debug log</summary><pre id="log"></pre></details>
+<script>
+var RECORDS = [
+ {
+  "id": "reginald01",
+  "num": 1,
+  "file": "img/reginald01.jpg",
+  "title": "The Official Royal Portrait",
+  "cards": [
+   {
+    "line": "Some Frenchies have personality. I have production value.",
+    "starred": true,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "Of course I have my own blend. Majesty requires proper coffee.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "Subtlety? Darling, I’ve never understood the appeal.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   }
+  ]
+ },
+ {
+  "id": "reginald02",
+  "num": 2,
+  "file": "img/reginald02.jpg",
+  "title": "Standing Ovation",
+  "cards": [
+   {
+    "line": "Some Frenchies enter a room. I prefer an audience.",
+    "starred": true,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "If you’re going to make an entrance, darling, make it worth watching.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "The curtain is up. Naturally, so am I.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   }
+  ]
+ },
+ {
+  "id": "reginald03",
+  "num": 3,
+  "file": "img/reginald03.jpg",
+  "title": "The Music Room",
+  "cards": [
+   {
+    "line": "Some call it excessive. I call it properly arranged.",
+    "starred": true,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "Coffee, music, and a little grandeur. I see no reason to choose.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "More is more. Especially before breakfast.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   }
+  ]
+ },
+ {
+  "id": "reginald04",
+  "num": 4,
+  "file": "img/reginald04.jpg",
+  "title": "The Swinging Socialite",
+  "cards": [
+   {
+    "line": "A picnic without macarons is simply eating outdoors.",
+    "starred": true,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "I asked for a swing. Apparently I have standards.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "Too much? I’m afraid I don’t understand the question.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   }
+  ]
+ },
+ {
+  "id": "reginald05",
+  "num": 5,
+  "file": "img/reginald05.jpg",
+  "title": "A Very Scandalous Affair",
+  "cards": [
+   {
+    "line": "I had plans. Then the blanket made a compelling argument.",
+    "starred": true,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "Rain outside. Fire lit. Coffee poured. I shan’t be moving.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "A scandalous novel, a warm bed and coffee. Finally, some sensible priorities.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   }
+  ]
+ },
+ {
+  "id": "reginald06",
+  "num": 6,
+  "file": "img/reginald06.jpg",
+  "title": "The Grand Entrance",
+  "cards": [
+   {
+    "line": "A gentleman never lets his mommy make an entrance alone.",
+    "starred": true,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "My finest cape. My very best manners. I’m taking Mommy out tonight.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "She says I’m her handsome escort. I intend to take the position very seriously.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   }
+  ]
+ },
+ {
+  "id": "reginald07",
+  "num": 7,
+  "file": "img/reginald07.jpg",
+  "title": "A Matter of Taste",
+  "cards": [
+   {
+    "line": "One for the recipe. One for me. Mommy will never know.",
+    "starred": true,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "Mommy said we’re baking together. I’m in charge of quality control.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "Mommy does the baking. I handle the tasting. We all have our gifts.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   }
+  ]
+ },
+ {
+  "id": "reginald08",
+  "num": 8,
+  "file": "img/reginald08.jpg",
+  "title": "The Dinner Party",
+  "cards": [
+   {
+    "line": "I don’t host dinner parties. I produce them.",
+    "starred": true,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "I said dinner. They heard event. Finally, people who understand me.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "Too many candles? Too many Frenchies? Darling, those words don’t belong together.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   }
+  ]
+ },
+ {
+  "id": "reginald09",
+  "num": 9,
+  "file": "img/reginald09.jpg",
+  "title": "The Library",
+  "cards": [
+   {
+    "line": "I’m not lounging. I’m conducting research.",
+    "starred": true,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "Knowledge is power. Knowing where the macarons are is essential.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   },
+   {
+    "line": "I’ve read extensively on the subject. More is still more.",
+    "starred": false,
+    "status": "APPROVED-FOR-REVIEW"
+   }
+  ]
+ }
+];
+var ENDING = "I’m not fickle… just a Frenchie.";
+var STORE_PREFIX = 'ppp_lifequotes_reginald_v1_';
+var btn = document.getElementById('post'), st = document.getElementById('status');
+var car = document.getElementById('car'), customTa = document.getElementById('customTa');
+var currentIndex = -1;      // settled index
+var settled = false;        // true only after a settle and until next scroll starts
+var scrolling = false, touching = false, scrollTimer = null, misCount = 0;
+var renderedId = null;      // id whose title/captions are currently displayed
+var readyId = null;         // id whose File is ready for the current index
+var files = {};             // id -> File (cache)
+var loads = {};             // id -> Promise<File> (in-flight dedupe)
+var loadToken = 0;          // monotonically increasing
+var failedId = null;
+var state = {};             // id -> {selection, draft}; selection = 'q0'|'q1'|'q2'|'custom'|null
+var HAS_SCROLLEND = ('onscrollend' in window);
+var lastCaption = '';       // caption used by the most recent POST (for recovery copy)
+function log(m){document.getElementById('log').textContent += new Date().toISOString().slice(11,19)+' '+m+'\n';}
+function show(id,on){document.getElementById(id).classList.toggle('hide',!on);}
+function showCaption(c){document.getElementById('capTa').value=c;show('capBox',true);}
+log('userAgent: '+navigator.userAgent);
+log('navigator.share: '+(typeof navigator.share)+', canShare: '+(typeof navigator.canShare)+', clipboard.writeText: '+!!(navigator.clipboard&&navigator.clipboard.writeText)+', scrollend: '+HAS_SCROLLEND);
+
+/* ---------- per-image state (localStorage) ---------- */
+function loadState(id){
+  if(state[id]) return state[id];
+  var s = null;
+  try{ s = JSON.parse(localStorage.getItem(storeKey(id))||'null'); }catch(e){ s = null; }
+  if(!s || typeof s!=='object') s = {};
+  var r = recById(id), def = 'q'+starredIndex(r);
+  var sel = (validKey(r, s.selection) || s.selection==='custom') ? s.selection : (s.hasOwnProperty('selection') && s.selection===null ? null : def);
+  state[id] = {selection: sel, draft: (typeof s.draft==='string') ? s.draft : ''};
+  return state[id];
+}
+function saveState(id){
+  try{ localStorage.setItem(storeKey(id), JSON.stringify(state[id])); }catch(e){ log('localStorage save failed: '+e); }
+}
+/* v6: every image's lines changed, so saved choices use a fresh key (old picks must not land on a new line) */
+function storeKey(id){ return STORE_PREFIX + id; }
+function recById(id){ for(var i=0;i<RECORDS.length;i++){ if(RECORDS[i].id===id) return RECORDS[i]; } return null; }
+function starredIndex(r){ for(var i=0;r&&i<r.cards.length;i++){ if(r.cards[i].starred) return i; } return 0; }
+function validKey(r, k){ return !!(r && typeof k==='string' && /^q\d$/.test(k) && r.cards[+k.slice(1)]); }
+/* v11 (Dylan 2026-10-09): caption = the chosen line, ONE line break, then the closer (no blank line). No quote, no name, no footer.
+   Closer: curly apostrophe in I'm, ellipsis … . Same closer for write-your-own. */
+function messageFor(id){
+  var r = recById(id), s = loadState(id);
+  if(!r || !s.selection) return null;
+  if(s.selection==='custom'){ var t = s.draft.trim(); return t ? t + '\n' + ENDING : null; }
+  return validKey(r, s.selection) ? r.cards[+s.selection.slice(1)].line + '\n' + ENDING : null;
+}
+function buildCaption(id){ return messageFor(id); }
+
+/* ---------- carousel ---------- */
+RECORDS.forEach(function(r, i){
+  var d = document.createElement('div'); d.className = 'slide';
+  var im = document.createElement('img'); im.src = r.file; im.alt = r.title; im.draggable = false;
+  if(i>1) im.loading = 'lazy';
+  d.appendChild(im); car.appendChild(d);
+});
+function slideW(){ return car.clientWidth || 1; }
+function nearestIndex(){ return Math.max(0, Math.min(RECORDS.length-1, Math.round(car.scrollLeft / slideW()))); }
+function goTo(i){
+  i = Math.max(0, Math.min(RECORDS.length-1, i));
+  car.scrollTo({left: i*slideW(), behavior: 'smooth'});
+}
+document.getElementById('prev').addEventListener('click', function(){ goTo((settled?currentIndex:nearestIndex())-1); });
+document.getElementById('next').addEventListener('click', function(){ goTo((settled?currentIndex:nearestIndex())+1); });
+
+function onScroll(){
+  if(!scrolling){ scrolling = true; settled = false; updateBtn(); }
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(function(){ trySettle('debounce'); }, 120);
+}
+function trySettle(src){
+  clearTimeout(scrollTimer);
+  if(touching){ return; } // finger still down; touchend will re-check
+  var i = nearestIndex(), off = Math.abs(car.scrollLeft - i*slideW());
+  if(off > 4 && misCount < 3){ misCount++; scrollTimer = setTimeout(function(){ trySettle('recheck'); }, 120); return; }
+  misCount = 0;
+  settle(i, src);
+}
+car.addEventListener('scroll', onScroll, {passive:true});
+if(HAS_SCROLLEND) car.addEventListener('scrollend', function(){ trySettle('scrollend'); });
+car.addEventListener('touchstart', function(){ touching = true; }, {passive:true});
+car.addEventListener('touchend', function(){ touching = false; if(scrolling){ clearTimeout(scrollTimer); scrollTimer = setTimeout(function(){ trySettle('touchend'); }, 120); } }, {passive:true});
+car.addEventListener('touchcancel', function(){ touching = false; if(scrolling){ clearTimeout(scrollTimer); scrollTimer = setTimeout(function(){ trySettle('touchcancel'); }, 120); } }, {passive:true});
+window.addEventListener('resize', function(){ if(currentIndex>=0){ car.scrollLeft = currentIndex*slideW(); } });
+
+function settle(i, src){
+  scrolling = false;
+  var changed = (i !== currentIndex);
+  currentIndex = i; settled = true;
+  var id = RECORDS[i].id;
+  if(changed){
+    readyId = (files[id] ? id : null);
+    st.textContent=''; show('recover',false); show('capBox',false); failedId = null;
+    render(i);
+    log('settle index '+i+' ('+id+') via '+src);
+  }
+  prepareFile(i);
+  if(i>0) preload(RECORDS[i-1].id);
+  if(i<RECORDS.length-1) preload(RECORDS[i+1].id);
+  updateBtn();
+}
+
+/* ---------- render title / captions for an index ---------- */
+function render(i){
+  var r = RECORDS[i], s = loadState(r.id);
+  var cnt = document.getElementById('count'); cnt.textContent = (i+1)+' of '+RECORDS.length+' · '; var sw = document.createElement('i'); sw.textContent = 'Swipe for more'; cnt.appendChild(sw);  /* Dylan 10 Oct 11:18 AM: hint styled crimson/larger (theme-pages.css); text unchanged */
+  document.getElementById('prev').disabled = (i===0);
+  document.getElementById('next').disabled = (i===RECORDS.length-1);
+  document.getElementById('title').textContent = 'Choose your quote';  /* Dylan 2026-10-09 9:28 PM: no visible image number; r.num/ids still used internally */
+  var caps = document.getElementById('caps'); caps.textContent = '';
+  r.cards.forEach(function(c, ci){
+    var k = 'q' + ci;
+    var lb = document.createElement('label');
+    var inp = document.createElement('input'); inp.type='radio'; inp.name='cap'; inp.value=k;
+    inp.checked = (s.selection===k);
+    inp.addEventListener('change', function(){
+      if(!inp.checked || renderedId!==r.id) return;
+      s.selection = k; saveState(r.id); paintSelection(); updateBtn();
+    });
+    var sp = document.createElement('span'); sp.className = 'card';
+    /* v5/v6: plain text only. No badge and no bold. First line is the default selection. */
+    var q = document.createElement('span'); q.className = 'q';
+    /* a choice may span several lines; show each real newline as a line break (text nodes only, no HTML) */
+    c.line.split('\n').forEach(function(part, pi){ if(pi) q.appendChild(document.createElement('br')); q.appendChild(document.createTextNode(part)); });
+    sp.appendChild(q);
+    lb.appendChild(inp); lb.appendChild(sp); caps.appendChild(lb);
+  });
+  document.getElementById('endText').textContent = ENDING;  /* Dylan 10 Oct 1:00 PM: display = the closer that is copied (still bold) */
+  document.getElementById('customLbl').firstChild.textContent = 'OR write your own';
+  customTa.value = s.draft;
+  var sv = document.getElementById('save'); sv.href = r.file; sv.setAttribute('download', r.id+'.jpg');
+  renderedId = r.id;
+  paintSelection();
+}
+function paintSelection(){
+  if(!renderedId) return;
+  var s = loadState(renderedId);
+  var labels = document.querySelectorAll('#caps label');
+  for(var j=0;j<labels.length;j++){
+    var inp = labels[j].querySelector('input');
+    inp.checked = (s.selection===inp.value);
+    labels[j].classList.toggle('on', inp.checked);
+  }
+  customTa.classList.toggle('on', s.selection==='custom');
+  document.getElementById('draftNote').textContent = s.draft ? 'Draft saved' : '';
+  document.getElementById('clearDraft').disabled = !s.draft;
+}
+customTa.addEventListener('input', function(){
+  if(!renderedId) return;
+  var s = loadState(renderedId);
+  s.draft = customTa.value; s.selection = 'custom';
+  saveState(renderedId); paintSelection(); updateBtn();
+});
+customTa.addEventListener('focus', function(){
+  if(!renderedId) return;
+  var s = loadState(renderedId);
+  if(s.draft.trim() && s.selection!=='custom'){ s.selection='custom'; saveState(renderedId); paintSelection(); updateBtn(); }
+});
+document.getElementById('clearDraft').addEventListener('click', function(){
+  if(!renderedId) return;
+  var s = loadState(renderedId);
+  s.draft = ''; if(s.selection==='custom') s.selection = null;
+  customTa.value = ''; saveState(renderedId); paintSelection(); updateBtn();
+  log('draft cleared '+renderedId);
+});
+
+/* ---------- image File prep ---------- */
+function fetchFile(id){
+  if(files[id]) return Promise.resolve(files[id]);
+  if(loads[id]) return loads[id];
+  var r = recById(id);
+  loads[id] = fetch(r.file).then(function(res){ if(!res.ok) throw new Error('HTTP '+res.status); return res.blob(); })
+    .then(function(b){ var f = new File([b], r.id+'.jpg', {type:'image/jpeg'}); files[id] = f; delete loads[id]; return f; },
+          function(e){ delete loads[id]; throw e; });
+  return loads[id];
+}
+function prepareFile(i){
+  var id = RECORDS[i].id;
+  var token = ++loadToken;
+  if(files[id]){ readyId = id; log('file ready '+id+' (cached)'); return; }
+  fetchFile(id).then(function(f){
+    if(token!==loadToken || !settled || RECORDS[currentIndex].id!==id){ log('stale file ignored '+id+' (token '+token+')'); return; }
+    readyId = id;
+    log('file ready '+id+' '+f.size+' bytes; canShare({files}): '+!!(navigator.canShare && navigator.canShare({files:[f]})));
+    updateBtn();
+  }, function(e){
+    if(token!==loadToken || RECORDS[currentIndex].id!==id) return;
+    failedId = id; log('image fetch failed '+id+': '+e);
+    btn.disabled = true; btn.textContent = 'Image failed to load'; show('recover',true);
+    var c = buildCaption(id); if(c){ lastCaption = c; showCaption(c); }
+  });
+}
+function preload(id){ if(!files[id]) fetchFile(id).then(function(){ log('preloaded '+id); }, function(){}); }
+
+/* ---------- POST button gating ---------- */
+function postReady(){
+  if(scrolling || !settled || currentIndex<0) return false;
+  var id = RECORDS[currentIndex].id;
+  return readyId===id && !!files[id] && renderedId===id && messageFor(id)!==null;
+}
+function updateBtn(){
+  if(currentIndex>=0 && failedId===RECORDS[currentIndex].id && settled && !scrolling){ btn.disabled = true; btn.textContent = 'Image failed to load'; return; }
+  var ok = postReady();
+  btn.disabled = !ok;
+  if(ok) btn.textContent = 'POST TO INSTAGRAM';
+  else if(scrolling || !settled || currentIndex<0 || readyId!==RECORDS[currentIndex].id || renderedId!==RECORDS[currentIndex].id) btn.textContent = 'Preparing…';
+  else btn.textContent = 'Choose a caption';
+}
+
+/* ---------- copy + share (mechanics preserved from share test) ---------- */
+function legacyCopy(text){
+  var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');
+  ta.style.position='fixed';ta.style.top='-1000px';document.body.appendChild(ta);
+  ta.select();ta.setSelectionRange(0,ta.value.length);
+  var ok=false;try{ok=document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);return ok;
+}
+function startCopy(text){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    try{
+      return navigator.clipboard.writeText(text).then(function(){return 'clipboard API ok';},
+        function(e){log('clipboard API failed: '+e.name);return legacyCopy(text)?'execCommand ok':Promise.reject('both failed');});
+    }catch(e){log('clipboard threw: '+e);}
+  }
+  return legacyCopy(text)?Promise.resolve('execCommand ok'):Promise.reject('execCommand failed');
+}
+function onPost(){
+  // Re-verify everything refers to the same image before sharing (all synchronous).
+  var id = (currentIndex>=0) ? RECORDS[currentIndex].id : null;
+  if(!id || scrolling || !settled || nearestIndex()!==currentIndex || renderedId!==id || readyId!==id || !files[id]){
+    log('post ABORTED: mismatch (index '+currentIndex+', rendered '+renderedId+', ready '+readyId+', scrolling '+scrolling+')');
+    st.textContent='The image is still changing — wait a moment, then tap again.'; updateBtn(); return;
+  }
+  var s = loadState(id);
+  if(s.selection==='custom'){ s.draft = customTa.value; } // textarea belongs to id (renderedId===id)
+  var CAPTION = buildCaption(id); // built from current state at tap time, never cached
+  if(CAPTION===null){ st.textContent='Choose a caption first.'; updateBtn(); return; }
+  var file = files[id];
+  show('recover',false);show('capBox',false);st.textContent='';
+  lastCaption = CAPTION;
+  var copyP = startCopy(CAPTION);
+  var shareP;
+  if(file && navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+    try{shareP = navigator.share({files:[file]});}catch(e){shareP=Promise.reject(e);}
+  } else shareP = Promise.reject({name:'Unsupported',message:'file sharing not supported'});
+  log('post '+id+' caption '+s.selection+' ('+CAPTION.length+' chars)');
+  copyP.then(function(r){log('clipboard: '+r);st.textContent='Caption copied. Choose Instagram, then paste into the caption box.';},
+             function(e){log('clipboard: FAILED '+e);showCaption(CAPTION);st.textContent='Could not copy caption automatically — copy it below.';});
+  shareP.then(function(){log('share: resolved');
+      copyP.then(function(){st.textContent='Share sheet closed — check Instagram to finish your post. (Caption was copied — paste it there.)';},
+                 function(){st.textContent='Share sheet closed — check Instagram to finish your post. Copy the caption below.';});
+    },function(e){var n=(e&&e.name)||String(e);log('share: FAILED '+n+' '+((e&&e.message)||''));
+      st.textContent=(n==='AbortError'?'Share sheet closed without sharing.':'Sharing isn\'t available here.')+' Try again, or save the image and copy the caption below.';
+      show('recover',true);showCaption(CAPTION);});
+}
+btn.addEventListener('click',onPost);
+document.getElementById('retry').addEventListener('click',function(){
+  if(currentIndex>=0 && failedId===RECORDS[currentIndex].id){ failedId=null; show('recover',false); show('capBox',false); st.textContent=''; prepareFile(currentIndex); updateBtn(); return; }
+  onPost();
+});
+document.getElementById('copyBtn').addEventListener('click',function(){
+  var ta=document.getElementById('capTa');ta.removeAttribute('readonly');ta.select();ta.setSelectionRange(0,99999);
+  startCopy(ta.value).then(function(r){log('manual copy: '+r);st.textContent='Caption copied.';},function(e){log('manual copy failed '+e);st.textContent='Copy failed — select the text and copy manually.';});
+});
+/* initial settle on image 1 */
+settle(0, 'init');
+</script><script src="../../affiliate/affiliate-config.js"></script><script src="../../affiliate/affiliate-core.js"></script><script src="../../affiliate/affiliate-mode.js"></script></body></html>

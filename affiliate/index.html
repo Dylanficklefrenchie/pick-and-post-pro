@@ -50,8 +50,8 @@ body{padding-top:14px}
 <p id="wel">WELCOME TO</p>
 <h1 id="brand" class="wordmark">Pick &amp; Post Pro</h1>
 <div class="rule" aria-hidden="true"><svg class="fleur"><use href="#fleur"/></svg></div>
-<p id="tag">Pick. Post. Earn.</p>
-<p id="lead">Share the Frenchies. Grow your sales.<br>Help the mission.</p>
+<p id="tag">Pick. Post. Share.</p>
+<p id="lead">Share the Frenchies. Share the ritual.<br>Help the mission.</p>
 <div id="steps" role="list" aria-label="How it works">
 <div class="st" role="listitem"><svg class="ic" viewBox="0 0 36 36" aria-hidden="true"><path d="M8.6 13C5.4 10.8 3.2 6.6 3.8 3.1c.3-1.2 1.8-1.6 3.9-.8 3.6 1.4 6.6 4.4 7.8 8M27.4 13c3.2-2.2 5.4-6.4 4.8-9.9-.3-1.2-1.8-1.6-3.9-.8-3.6 1.4-6.6 4.4-7.8 8"/><path d="M6.4 5.2c1.4 2 3.4 3.9 5.6 5.1M29.6 5.2c-1.4 2-3.4 3.9-5.6 5.1"/><path d="M7.5 16c0-4 4.5-5.8 10.5-5.8S28.5 12 28.5 16l.3 5.5c0 5.7-4.8 9.5-10.8 9.5S7.2 27.2 7.2 21.5z"/><path d="M15.6 14.4c1.5-.8 3.3-.8 4.8 0M16.4 16.2c1-.4 2.2-.4 3.2 0"/><circle class="dot" cx="12.6" cy="18.8" r="1.5"/><circle class="dot" cx="23.4" cy="18.8" r="1.5"/><path d="M15.2 22.3c-1.9.8-3.3 2.6-3.6 5M20.8 22.3c1.9.8 3.3 2.6 3.6 5"/><path class="dotp" d="M15.5 21.6c0-1.3 5-1.3 5 0s-1.5 2-2.5 2-2.5-.7-2.5-2z"/><path d="M18 23.6v1.3M15.2 25.6c1.2.5 2.1.2 2.8-.7.7.9 1.6 1.2 2.8.7"/></svg>Choose<br>a Frenchie.</div>
 <span class="sep" aria-hidden="true"><svg viewBox="0 0 6 10"><path d="M1.5 1.5 4.5 5l-3 3.5"/></svg></span>
@@ -65,7 +65,7 @@ body{padding-top:14px}
 <div class="card" id="setup">
 <span class="topfleur" aria-hidden="true"><svg class="fleur"><use href="#fleur"/></svg></span>
 <h2>One-Time Setup</h2>
-<p class="sub">Save your affiliate link so it’s automatically<br>added to your captions.</p>
+<p class="sub">Save your affiliate link once.<br>Copy it any time for your bio or Stories.</p>
 <div id="refEdit">
 <input id="refLink" class="link" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://ficklefrenchiecoffeeclub.com/?ref=YOURCODE" aria-label="Your affiliate link">
 <p id="refMsg" class="msg" role="status"></p>
@@ -73,23 +73,26 @@ body{padding-top:14px}
 </div>
 <div id="refShow" class="hide">
 <div class="saved"><b>Saved ✓</b><span id="refText"></span></div>
+<p class="msg hide" id="refSaveMsg" style="text-align:center"></p>
 <div style="text-align:center"><button class="linkbtn" id="refEditBtn">Edit</button></div>
 </div>
 <p class="note" id="emptyNote"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>No referral link saved yet. You can add it any time.</p>
 </div>
 
 <a class="btn" id="enter" href="picker/">Enter Pick &amp; Post Pro <svg class="arrow" aria-hidden="true"><use href="#arr"/></svg></a>
-<button class="linkbtn" id="reset">Preview as a new affiliate</button>
 
+<script src="affiliate-config.js"></script>
+<script src="affiliate-core.js"></script>
 <script>
+/* AFFILIATE Page 1 (affiliate mode live 10 Oct 2026, Dylan approved 1:00 PM): ?ref=CODE saves the full link automatically; manual links must be ficklefrenchiecoffeeclub.com with ?ref=; hidden reset: ?reset=1 */
 var KEY_LINK = 'ppp_referral_link', KEY_SEEN = 'ppp_welcome_seen';
 function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
 function set(k, v){ try{ localStorage.setItem(k, v); return true; }catch(e){ return false; } }
 function del(k){ try{ localStorage.removeItem(k); }catch(e){} }
 var $ = function(id){ return document.getElementById(id); };
-function valid(u){ return /^https?:\/\/\S+$/i.test(u); }
+function valid(u){ return !!PPP.normalize(u); }
 function show(){
-  var link = get(KEY_LINK);
+  var link = PPP.getLink();
   $('refEdit').classList.toggle('hide', !!link);
   $('refShow').classList.toggle('hide', !link);
   $('refText').textContent = link || '';
@@ -97,18 +100,25 @@ function show(){
 }
 $('saveBtn').addEventListener('click', function(){
   var u = $('refLink').value.trim(), m = $('refMsg');
-  if(!valid(u)){ $('refLink').classList.add('bad'); m.className = 'msg err'; m.textContent = 'Please paste your full link, starting with http'; return; }
+  if(!valid(u)){ $('refLink').classList.add('bad'); m.className = 'msg err'; m.textContent = PPP.config.invalidLinkMessage; return; }
   $('refLink').classList.remove('bad'); m.className = 'msg'; m.textContent = '';
-  if(!set(KEY_LINK, u)){ m.className = 'msg err'; m.textContent = 'Could not save on this device'; return; }
+  if(!PPP.setLink(u)){ m.className = 'msg err'; m.textContent = 'Could not save on this device'; return; }
   show();
 });
 $('refLink').addEventListener('input', function(){ $('refLink').classList.remove('bad'); $('refMsg').textContent = ''; });
-$('refEditBtn').addEventListener('click', function(){ $('refLink').value = get(KEY_LINK) || ''; $('refEdit').classList.remove('hide'); $('refShow').classList.add('hide'); $('refLink').focus(); });
-$('reset').addEventListener('click', function(){ del(KEY_LINK); del(KEY_SEEN); location.reload(); });
+$('refEditBtn').addEventListener('click', function(){ $('refLink').value = PPP.getLink() || ''; $('refEdit').classList.remove('hide'); $('refShow').classList.add('hide'); $('refLink').focus(); });
+/* hidden reset for testing / support: /affiliate/?reset=1 */
+var QS = new URLSearchParams(location.search), autoMsg = '';
+if(QS.get('reset') === '1'){ del(KEY_LINK); del(KEY_SEEN); }
+/* welcome-email link: /affiliate/?ref=CODE -> saves https://ficklefrenchiecoffeeclub.com/?ref=CODE (no pasting) */
+if(QS.has('ref')){ var fromUrl = PPP.fromCode(QS.get('ref')); if(fromUrl && PPP.setLink(fromUrl)) autoMsg = 'ok'; else autoMsg = 'bad'; }
+if(QS.has('ref') || QS.has('reset')){ try{ history.replaceState(null, '', location.pathname + location.hash); }catch(e){} }
 var firstVisit = !get(KEY_SEEN);
 document.body.setAttribute('data-first-visit', firstVisit ? '1' : '0');
 set(KEY_SEEN, new Date().toISOString());
 show();
+if(autoMsg === 'ok'){ $('refSaveMsg').textContent = 'Your link was saved from your welcome email.'; $('refSaveMsg').classList.remove('hide'); }
+if(autoMsg === 'bad'){ $('refMsg').className = 'msg err'; $('refMsg').textContent = 'That link\u2019s referral code doesn\u2019t look right \u2014 please paste your full link below.'; }
 /* keep the wordmark on one line at any width (fallback fonts differ in width) */
 function fitWord(){ var e = $('brand'), s = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--brand-max')) || 50; e.style.fontSize = s + 'px'; while(e.scrollWidth > e.clientWidth && s > 24){ s--; e.style.fontSize = s + 'px'; } }
 fitWord(); window.addEventListener('resize', fitWord); if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitWord);

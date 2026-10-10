@@ -20,6 +20,7 @@ body{padding-top:10px;padding-bottom:12px}
 #panel h2{font-family:var(--display);font-weight:700;font-size:19px;color:var(--crimson);margin:0 0 8px;text-align:center}
 #panel .x{position:absolute;top:4px;right:6px;background:none;border:0;font-size:24px;color:var(--muted);cursor:pointer;padding:4px 8px}
 #panel #pSave{margin-top:8px}
+#pTip{display:block;font-size:14px;color:var(--muted)}
 #choose{font-family:var(--display);font-weight:700;font-size:21.5px;letter-spacing:0;gap:6px;margin:8px 0 9px;color:var(--gold-dark)}
 #choose .fa{width:32px;height:10px}
 #frame{margin:0 auto;width:100%}
@@ -42,7 +43,7 @@ body{padding-top:10px;padding-bottom:12px}
 </defs></svg>
 <header id="bar">
 <img src="../../icons/icon-192.png" alt="Pick &amp; Post Pro app icon" width="46" height="46">
-<div class="t"><p class="t1 wordmark" id="t1">Pick &amp; Post Pro</p><p class="t2">Pick. Post. Earn.</p></div>
+<div class="t"><p class="t1 wordmark" id="t1">Pick &amp; Post Pro</p><p class="t2">Pick. Post. Share.</p></div>
 <span class="sep" aria-hidden="true"></span>
 <button id="gear" aria-label="Settings: your affiliate link" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
 </header>
@@ -54,7 +55,7 @@ body{padding-top:10px;padding-bottom:12px}
 <p id="pMsg" class="msg" role="status"></p>
 <button class="btn small" id="pSave">SAVE MY LINK</button>
 </div>
-<div id="pShow" class="hide"><div class="saved"><b>Saved ✓</b><span id="pText"></span></div><div style="text-align:center"><button class="linkbtn" id="pEditBtn">Edit</button></div></div>
+<div id="pShow" class="hide"><div class="saved"><b>Saved ✓</b><span id="pText"></span></div><button class="btn small" id="pCopy" style="margin-top:8px">COPY MY LINK</button><p class="msg" id="pCopyMsg" role="status" style="text-align:center"></p><p class="note" id="pTip" style="margin-top:6px"></p><div style="text-align:center"><button class="linkbtn" id="pEditBtn">Edit</button></div></div>
 <p class="note" id="pEmpty"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>No referral link saved yet. You can add it any time.</p>
 </div>
 <div id="choose" class="flourish"><svg class="fa" aria-hidden="true"><use href="#fo"/></svg>Choose Your Frenchie<svg class="fa" aria-hidden="true"><use href="#fo"/></svg></div>
@@ -66,7 +67,10 @@ body{padding-top:10px;padding-bottom:12px}
 <button class="round" id="next" aria-label="Next character"><svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5"/></svg></button>
 </div>
 <a class="btn off" id="open" href="#">Loading…</a>
+<script src="../affiliate-config.js"></script>
+<script src="../affiliate-core.js"></script>
 <script>
+/* AFFILIATE picker (affiliate mode live 10 Oct 2026): characters hidden by affiliate-config.js (Wheelie Roast, 0% commission) are left out; CTA opens /affiliate/pages/<key>/ (affiliate captions). */
 /* Characters come from characters.json (name, optional title, portrait, page). Add a character = add one entry. */
 var CHARS = [], car = document.getElementById('car'), frame = document.getElementById('frame'), cur = -1, timer = null, scrolling = false;
 var $ = function(id){ return document.getElementById(id); };
@@ -106,7 +110,7 @@ function fit(){
 window.addEventListener('resize', fit);
 window.addEventListener('orientationchange', function(){ setTimeout(fit, 200); });
 function build(list){
-  CHARS = list.filter(function(c){ return c && c.name && c.portrait && c.page; });
+  CHARS = list.filter(function(c){ return c && c.name && c.portrait && c.page && PPP.showInPicker((String(c.page).match(/pages\/([^\/]+)\/?$/) || [])[1]); });
   CHARS.forEach(function(c, i){
     var s = document.createElement('div'); s.className = 'slide';
     var im = document.createElement('img'); im.src = c.portrait; im.alt = c.name + (c.title ? ', ' + c.title : ''); im.draggable = false;
@@ -124,18 +128,20 @@ if(document.fonts && document.fonts.addEventListener) document.fonts.addEventLis
 var KEY_LINK = 'ppp_referral_link';
 function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
 function set(k, v){ try{ localStorage.setItem(k, v); return true; }catch(e){ return false; } }
-function pShow(){ var l = get(KEY_LINK); $('pEdit').classList.toggle('hide', !!l); $('pShow').classList.toggle('hide', !l); $('pText').textContent = l || ''; $('pEmpty').classList.toggle('hide', !!l); }
+function pShow(){ var l = PPP.getLink(); $('pEdit').classList.toggle('hide', !!l); $('pShow').classList.toggle('hide', !l); $('pText').textContent = l || ''; $('pEmpty').classList.toggle('hide', !!l); }
 function togglePanel(open){ $('panel').classList.toggle('hide', !open); $('gear').setAttribute('aria-expanded', open ? 'true' : 'false'); if(open){ $('pLink').value = ''; $('pMsg').textContent = ''; pShow(); } fit(); }
 $('gear').addEventListener('click', function(){ togglePanel($('panel').classList.contains('hide')); });
 $('pClose').addEventListener('click', function(){ togglePanel(false); });
 $('pSave').addEventListener('click', function(){
   var u = $('pLink').value.trim(), m = $('pMsg');
-  if(!/^https?:\/\/\S+$/i.test(u)){ $('pLink').classList.add('bad'); m.className = 'msg err'; m.textContent = 'Please paste your full link, starting with http'; return; }
+  if(!PPP.normalize(u)){ $('pLink').classList.add('bad'); m.className = 'msg err'; m.textContent = PPP.config.invalidLinkMessage; return; }
   $('pLink').classList.remove('bad'); m.className = 'msg'; m.textContent = '';
-  if(!set(KEY_LINK, u)){ m.className = 'msg err'; m.textContent = 'Could not save on this device'; return; }
+  if(!PPP.setLink(u)){ m.className = 'msg err'; m.textContent = 'Could not save on this device'; return; }
   pShow(); fit();
 });
 $('pLink').addEventListener('input', function(){ $('pLink').classList.remove('bad'); $('pMsg').textContent = ''; });
-$('pEditBtn').addEventListener('click', function(){ $('pLink').value = get(KEY_LINK) || ''; $('pEdit').classList.remove('hide'); $('pShow').classList.add('hide'); fit(); $('pLink').focus(); });
+$('pTip').textContent = PPP.config.copyLinkTip;
+$('pCopy').addEventListener('click', function(){ var l = PPP.getLink(), m = $('pCopyMsg'); if(!l) return; PPP.copyText(l).then(function(){ m.className = 'msg'; m.textContent = 'Link copied \u2713'; }, function(){ m.className = 'msg err'; m.textContent = 'Could not copy \u2014 press and hold the link to copy it.'; }); });
+$('pEditBtn').addEventListener('click', function(){ $('pCopyMsg').textContent = ''; $('pLink').value = PPP.getLink() || ''; $('pEdit').classList.remove('hide'); $('pShow').classList.add('hide'); fit(); $('pLink').focus(); });
 </script>
 </body></html>

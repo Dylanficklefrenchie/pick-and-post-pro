@@ -1,5 +1,5 @@
-/* PICK & POST PRO — AFFILIATE MODE for the character pages (PREVIEW, 10 Oct 2026).
-   Loaded ONLY by the generated copies at /affiliate-preview/pages/<key>/ (deploy step). Those copies are the brand page HTML byte-for-byte
+/* PICK & POST PRO — AFFILIATE MODE for the character pages (live at /affiliate/ since 10 Oct 2026, Dylan approved 1:00 PM).
+   Loaded ONLY by the generated copies at /affiliate/pages/<key>/ (deploy step). Those copies are the brand page HTML byte-for-byte
    plus <base href="../../../pages/<key>/"> and these scripts, so the caption lines, closers, images and swipe/POST mechanics come from the
    ONE brand source. This script only: wraps buildCaption (disclosure first + footer), blocks POST until a valid link is saved,
    adds Copy my link + a back-to-picker control, hides the debug log, and shows the closer exactly as it is copied. */
@@ -18,7 +18,7 @@
     fix(); new MutationObserver(fix).observe(et, {childList: true, characterData: true, subtree: true});
   }
   /* 3. back to the affiliate picker (above the header, never on the photo) */
-  var back = document.createElement('a'); back.id = 'ppaBack'; back.className = 'ppa-back'; back.href = '../../affiliate-preview/picker/';
+  var back = document.createElement('a'); back.id = 'ppaBack'; back.className = 'ppa-back'; back.href = '../../affiliate/picker/';
   back.innerHTML = '<span aria-hidden="true">\u2039</span> Choose another Frenchie';
   var h1 = document.querySelector('h1'); h1.parentNode.insertBefore(back, h1);
   /* 4. affiliate card: what the caption adds + Copy my link, or the friendly link prompt */

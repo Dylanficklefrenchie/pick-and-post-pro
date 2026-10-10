@@ -58,7 +58,7 @@ details{margin-top:16px;font-size:12px}pre{white-space:pre-wrap;word-break:break
 </div>
 <div id="title"></div>
 <div id="caps" role="radiogroup" aria-label="Quote card choices"></div>
-<p id="endNote">Every caption ends with:<br><span id="endText">I’m Not FICKLE… Just a FRENCHIE</span></p>
+<p id="endNote">Every caption ends with:<br><span id="endText">I’m not fickle… just a Frenchie.</span></p>
 <p id="customLbl"><strong>OR write your own</strong></p>
 <textarea id="customTa" placeholder="Write your own message… (the ending is added for you)"></textarea>
 <div id="draftRow"><span id="draftNote"></span><button class="sm" id="clearDraft">Clear</button></div>
@@ -487,7 +487,7 @@ function render(i){
     sp.appendChild(q);
     lb.appendChild(inp); lb.appendChild(sp); caps.appendChild(lb);
   });
-  document.getElementById('endText').textContent = 'I’m Not FICKLE… Just a FRENCHIE';
+  document.getElementById('endText').textContent = ENDING;  /* Dylan 10 Oct 1:00 PM: display = the closer that is copied (still bold) */
   document.getElementById('customLbl').firstChild.textContent = 'OR write your own';
   customTa.value = s.draft;
   var sv = document.getElementById('save'); sv.href = r.file; sv.setAttribute('download', r.id+'.jpg');

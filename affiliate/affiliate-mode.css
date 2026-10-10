@@ -1,4 +1,4 @@
-/* AFFILIATE MODE additions on the character pages (preview). Theme v3 tokens come from pages/theme-pages.css. Nothing is placed on the photos. */
+/* AFFILIATE MODE additions on the character pages (live /affiliate/). Theme v3 tokens come from pages/theme-pages.css. Nothing is placed on the photos. */
 details{display:none!important}   /* debug log hidden in affiliate mode */
 .ppa-back{display:inline-flex;align-items:center;gap:6px;margin:0 0 6px;font-family:var(--body);font-size:16px;font-weight:600;color:var(--crimson);text-decoration:none;padding:4px 10px 4px 8px;border:1.5px solid var(--gold);border-radius:999px;background:var(--ivory)}
 .ppa-back span{font-size:20px;line-height:1;color:var(--gold-dark)}
