@@ -1,82 +1,103 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>PICK &amp; POST PRO — LIFE QUOTES FRENCHIE STYLE</title>
+<title>Pick &amp; Post Pro — Choose your Frenchie</title>
+<link rel="stylesheet" href="theme.css">
 <style>
-/* same base + carousel styles as the LIFE QUOTES pages */
-body{font-family:-apple-system,system-ui,sans-serif;margin:0;padding:16px;background:#faf7f2;color:#222;max-width:520px;margin:auto}
-h1{font-size:18px;margin:4px 0 12px}
-img{width:100%;border-radius:8px;display:block}
-.big{display:block;width:100%;padding:20px;font-size:20px;font-weight:700;border:0;border-radius:12px;background:#c13584;color:#fff;margin:14px 0}
-.big:disabled{background:#aaa}
-button.sm{padding:10px 14px;font-size:16px;border-radius:8px;border:1px solid #888;background:#fff;margin:6px 6px 6px 0}
-#sub{font-size:13px;color:#555;margin:-8px 0 12px}
-#car{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;border-radius:8px;scrollbar-width:none}
+body{padding-top:10px;padding-bottom:12px}
+#bar{display:flex;align-items:center;gap:10px;margin:0 0 6px}
+#bar img{width:60px;height:60px;border-radius:12px;border:1.5px solid var(--gold);box-shadow:0 2px 5px rgba(48,43,37,.28);flex:0 0 auto}
+#bar .t{flex:1;min-width:0;overflow:hidden;text-align:center}
+#bar .t1{font-size:31px}
+#bar .t2{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.03em;color:var(--crimson);margin:1px 0 0;line-height:1.05}
+#choose{font-family:var(--display);font-weight:700;font-size:21.5px;letter-spacing:0;gap:6px;margin:8px 0 9px;color:var(--gold-dark)}
+#choose .fa{width:32px;height:10px}
+#frame{margin:0 auto;width:100%}
+#car{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;border-radius:11px;scrollbar-width:none;background:var(--cream)}
 #car::-webkit-scrollbar{display:none}
 .slide{flex:0 0 100%;width:100%;aspect-ratio:4/5;scroll-snap-align:start;scroll-snap-stop:always}
 .slide img{width:100%;height:100%;object-fit:contain}
-#nav{display:flex;align-items:center;justify-content:space-between;margin:8px 0 0}
-#nav button.sm{margin:0;min-width:48px;font-size:22px;line-height:1;padding:8px 14px}
-#nav button.sm:disabled{opacity:.35}
-#count{font-size:15px;color:#555}
-#title{font-size:16px;font-weight:700;margin:10px 0 6px}
-/* picker preview additions (minimal) */
-#choose{font-size:16px;font-weight:700;margin:0 0 10px}
-#name{font-size:18px;font-weight:400;text-align:center;margin:10px 0 0}
-a.big{text-align:center;text-decoration:none;box-sizing:border-box}
-a.big.off{background:#aaa;pointer-events:none}
-#car,#nav{position:static!important}
+#who{text-align:center;margin:9px 0 0}
+#nm{font-size:36px}
+#tiRow{margin:3px 0 0}
+#tiRow .fa{width:40px}
+#ti{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-dark)}
+#nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:9px 0 0}
+#count{font-size:15px;color:var(--ink);text-align:center}
+#count i{font-style:italic}
+#open{margin:12px 0 0;font-size:21px;padding:16px 12px}
 </style><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><meta name="apple-mobile-web-app-title" content="Pick &amp; Post Pro"></head><body>
-<h1>PICK &amp; POST PRO<br><span style="white-space:nowrap;color:#8F1127">LIFE QUOTES - FRENCHIE STYLE</span></h1>
-<p id="sub">Test copy (not live)</p>
-<div id="choose">Choose your Frenchie</div>
-<div id="car" aria-label="Characters"></div>
-<div id="name"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="fa" viewBox="0 0 40 10"><path d="M2 2.5 5 5 2 7.5M5 2.5 8 5 5 7.5" fill="none" stroke-width="1"/><path d="M5 5H33" fill="none"/><path d="M39 5 32 1.8 33.6 5 32 8.2z" stroke="none"/></symbol><symbol id="fo" viewBox="0 0 44 12"><path d="M1 6H14M30 6H43" fill="none"/><path d="M14 6c2-3.6 5.6-3.6 4.6-.6-.6 1.7-3 1.2-2-.6M30 6c-2 3.6-5.6 3.6-4.6.6.6-1.7 3-1.2 2 .6" fill="none" stroke-width="1"/><path d="M22 2.2 25.2 6 22 9.8 18.8 6z" stroke="none"/><circle cx="2" cy="6" r="1.4" stroke="none"/><circle cx="42" cy="6" r="1.4" stroke="none"/></symbol>
+</defs></svg>
+<header id="bar">
+<img src="icons/icon-192.png" alt="Pick &amp; Post Pro app icon" width="46" height="46">
+<div class="t"><p class="t1 wordmark" id="t1">Pick &amp; Post Pro</p><p class="t2">Pick. Post. Earn.</p></div>
+</header>
+<div id="choose" class="flourish"><svg class="fa" aria-hidden="true"><use href="#fo"/></svg>Choose Your Frenchie<svg class="fa" aria-hidden="true"><use href="#fo"/></svg></div>
+<div id="frame" class="photo-frame"><div id="car" aria-label="Characters"></div></div>
+<div id="who"><p id="nm" class="name"></p><div id="tiRow" class="flourish"><svg class="fa" aria-hidden="true"><use href="#fa"/></svg><span id="ti"></span><svg class="fa" aria-hidden="true" style="transform:scaleX(-1)"><use href="#fa"/></svg></div></div>
 <div id="nav">
-<button class="sm" id="prev" aria-label="Previous character">‹</button>
+<button class="round" id="prev" aria-label="Previous character"><svg viewBox="0 0 14 14"><path d="M9 2 4 7l5 5"/></svg></button>
 <span id="count"></span>
-<button class="sm" id="next" aria-label="Next character">›</button>
+<button class="round" id="next" aria-label="Next character"><svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5"/></svg></button>
 </div>
-<a class="big off" id="open" href="#">Loading…</a>
+<a class="btn off" id="open" href="#">Loading…</a>
 <script>
-/* All characters come from characters.json (name, portrait, page). Add a character = add one entry; nothing else changes. */
-var CHARS = [], car = document.getElementById('car'), cur = -1, timer = null, scrolling = false;
+/* BRAND version (Dylan's own posting; no link setup step). Characters come from characters.json (name, optional title, portrait, page). Add a character = add one entry. */
+var CHARS = [], car = document.getElementById('car'), frame = document.getElementById('frame'), cur = -1, timer = null, scrolling = false;
+var $ = function(id){ return document.getElementById(id); };
 function slideW(){ return car.clientWidth || 1; }
 function nearest(){ return Math.max(0, Math.min(CHARS.length-1, Math.round(car.scrollLeft / slideW()))); }
 function goTo(i){ if(i < 0 || i >= CHARS.length) return; car.scrollTo({left: i*slideW(), behavior: 'smooth'}); }
+function caps(s){ return s.toLocaleUpperCase('en'); }
 function render(i){
-  cur = i; var c = CHARS[i], b = document.getElementById('open');
-  document.getElementById('name').textContent = c.name;
-  document.getElementById('count').textContent = (i+1) + ' of ' + CHARS.length + ' · Swipe for more';
-  document.getElementById('prev').disabled = (i === 0);
-  document.getElementById('next').disabled = (i === CHARS.length-1);
-  b.textContent = 'Open ' + c.name; b.href = c.page; b.classList.remove('off');
+  cur = i; var c = CHARS[i], b = $('open');
+  $('nm').textContent = c.name;  /* Cinzel: mixed case = large + small capitals */
+  $('ti').textContent = c.title || ''; $('tiRow').style.visibility = c.title ? '' : 'hidden';  /* keep height so the layout doesn't jump */
+  $('count').innerHTML = ''; $('count').appendChild(document.createTextNode((i+1) + ' of ' + CHARS.length + ' • ')); var em = document.createElement('i'); em.textContent = 'Swipe to discover the Royal Court'; $('count').appendChild(em);
+  $('prev').disabled = (i === 0); $('next').disabled = (i === CHARS.length-1);
+  b.innerHTML = ''; b.appendChild(document.createTextNode('Choose ' + c.name + ' '));
+  b.insertAdjacentHTML('beforeend', '<svg class="arrow" viewBox="0 0 22 16" aria-hidden="true"><path d="M1.5 8h18M13.5 2l6 6-6 6"/></svg>');
+  b.href = c.page; b.classList.remove('off');
+  fitText($('nm'), 36, 20); b.style.fontSize = ''; fitText(b, 21, 14);
 }
 function settle(){ clearTimeout(timer); scrolling = false; render(nearest()); }
-function onScroll(){
-  if(!scrolling){ scrolling = true; document.getElementById('open').classList.add('off'); }  /* never open the wrong character mid-swipe */
-  clearTimeout(timer); timer = setTimeout(settle, 120);
-}
-document.getElementById('prev').addEventListener('click', function(){ goTo((scrolling ? nearest() : cur) - 1); });
-document.getElementById('next').addEventListener('click', function(){ goTo((scrolling ? nearest() : cur) + 1); });
+function onScroll(){ if(!scrolling){ scrolling = true; $('open').classList.add('off'); } clearTimeout(timer); timer = setTimeout(settle, 120); }
+$('prev').addEventListener('click', function(){ goTo((scrolling ? nearest() : cur) - 1); });
+$('next').addEventListener('click', function(){ goTo((scrolling ? nearest() : cur) + 1); });
 car.addEventListener('scroll', onScroll, {passive:true});
 if('onscrollend' in window) car.addEventListener('scrollend', settle);
 car.addEventListener('touchend', function(){ if(scrolling){ clearTimeout(timer); timer = setTimeout(settle, 120); } }, {passive:true});
-window.addEventListener('resize', function(){ if(cur >= 0) car.scrollLeft = cur * slideW(); });
+/* size the portrait so the Choose button is visible without scrolling (works down to a 390x664 Safari viewport) */
+function fitText(e, max, min){ var s = max; e.style.fontSize = s + 'px'; while(e.scrollWidth > e.clientWidth && s > min){ s--; e.style.fontSize = s + 'px'; } }
+function fit(){
+  fitText($('t1'), 31, 18); if(cur >= 0) fitText($('nm'), 36, 20); $('open').style.fontSize = ''; fitText($('open'), 21, 14);
+  frame.style.width = '100%';
+  var full = frame.clientWidth, h = window.innerHeight, others = document.body.scrollHeight - frame.offsetHeight;
+  var avail = h - others - 2;            /* height left for the framed portrait */
+  var w = Math.max(200, Math.min(full, Math.floor((avail - 8) * 0.8) + 8));
+  frame.style.width = w + 'px';
+  if(cur >= 0) car.scrollLeft = cur * slideW();
+}
+window.addEventListener('resize', fit);
+window.addEventListener('orientationchange', function(){ setTimeout(fit, 200); });
 function build(list){
   CHARS = list.filter(function(c){ return c && c.name && c.portrait && c.page; });
   CHARS.forEach(function(c, i){
     var s = document.createElement('div'); s.className = 'slide';
-    var im = document.createElement('img'); im.src = c.portrait; im.alt = c.name; im.draggable = false;
+    var im = document.createElement('img'); im.src = c.portrait; im.alt = c.name + (c.title ? ', ' + c.title : ''); im.draggable = false;
     if(i > 1) im.loading = 'lazy';
     s.appendChild(im); car.appendChild(s);
   });
-  if(CHARS.length) render(0); else document.getElementById('open').textContent = 'No characters';
+  if(CHARS.length) render(0); else $('open').textContent = 'No characters';
+  fit();
 }
 fetch('characters.json', {cache: 'no-store'}).then(function(r){ return r.json(); }).then(build)
-  .catch(function(){ document.getElementById('open').textContent = 'Could not load characters'; });
+  .catch(function(){ $('open').textContent = 'Could not load characters'; });
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 </script>
 </body></html>
