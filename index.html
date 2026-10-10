@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>PICK &amp; POST PRO — LIFE QUOTES FRENCHIE STYLE</title>
+<style>
+/* same base + carousel styles as the LIFE QUOTES pages */
+body{font-family:-apple-system,system-ui,sans-serif;margin:0;padding:16px;background:#faf7f2;color:#222;max-width:520px;margin:auto}
+h1{font-size:18px;margin:4px 0 12px}
+img{width:100%;border-radius:8px;display:block}
+.big{display:block;width:100%;padding:20px;font-size:20px;font-weight:700;border:0;border-radius:12px;background:#c13584;color:#fff;margin:14px 0}
+.big:disabled{background:#aaa}
+button.sm{padding:10px 14px;font-size:16px;border-radius:8px;border:1px solid #888;background:#fff;margin:6px 6px 6px 0}
+#sub{font-size:13px;color:#555;margin:-8px 0 12px}
+#car{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;border-radius:8px;scrollbar-width:none}
+#car::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;width:100%;aspect-ratio:4/5;scroll-snap-align:start;scroll-snap-stop:always}
+.slide img{width:100%;height:100%;object-fit:contain}
+#nav{display:flex;align-items:center;justify-content:space-between;margin:8px 0 0}
+#nav button.sm{margin:0;min-width:48px;font-size:22px;line-height:1;padding:8px 14px}
+#nav button.sm:disabled{opacity:.35}
+#count{font-size:15px;color:#555}
+#title{font-size:16px;font-weight:700;margin:10px 0 6px}
+/* picker preview additions (minimal) */
+#choose{font-size:16px;font-weight:700;margin:0 0 10px}
+#name{font-size:18px;font-weight:400;text-align:center;margin:10px 0 0}
+a.big{text-align:center;text-decoration:none;box-sizing:border-box}
+a.big.off{background:#aaa;pointer-events:none}
+#car,#nav{position:static!important}
+</style></head><body>
+<h1>PICK &amp; POST PRO<br><span style="white-space:nowrap;color:#8F1127">LIFE QUOTES - FRENCHIE STYLE</span></h1>
+<p id="sub">Test copy (not live)</p>
+<div id="choose">Choose your Frenchie</div>
+<div id="car" aria-label="Characters"></div>
+<div id="name"></div>
+<div id="nav">
+<button class="sm" id="prev" aria-label="Previous character">‹</button>
+<span id="count"></span>
+<button class="sm" id="next" aria-label="Next character">›</button>
+</div>
+<a class="big off" id="open" href="#">Loading…</a>
+<script>
+/* All characters come from characters.json (name, portrait, page). Add a character = add one entry; nothing else changes. */
+var CHARS = [], car = document.getElementById('car'), cur = -1, timer = null, scrolling = false;
+function slideW(){ return car.clientWidth || 1; }
+function nearest(){ return Math.max(0, Math.min(CHARS.length-1, Math.round(car.scrollLeft / slideW()))); }
+function goTo(i){ if(i < 0 || i >= CHARS.length) return; car.scrollTo({left: i*slideW(), behavior: 'smooth'}); }
+function render(i){
+  cur = i; var c = CHARS[i], b = document.getElementById('open');
+  document.getElementById('name').textContent = c.name;
+  document.getElementById('count').textContent = (i+1) + ' of ' + CHARS.length + ' · Swipe for more';
+  document.getElementById('prev').disabled = (i === 0);
+  document.getElementById('next').disabled = (i === CHARS.length-1);
+  b.textContent = 'Open ' + c.name; b.href = c.page; b.classList.remove('off');
+}
+function settle(){ clearTimeout(timer); scrolling = false; render(nearest()); }
+function onScroll(){
+  if(!scrolling){ scrolling = true; document.getElementById('open').classList.add('off'); }  /* never open the wrong character mid-swipe */
+  clearTimeout(timer); timer = setTimeout(settle, 120);
+}
+document.getElementById('prev').addEventListener('click', function(){ goTo((scrolling ? nearest() : cur) - 1); });
+document.getElementById('next').addEventListener('click', function(){ goTo((scrolling ? nearest() : cur) + 1); });
+car.addEventListener('scroll', onScroll, {passive:true});
+if('onscrollend' in window) car.addEventListener('scrollend', settle);
+car.addEventListener('touchend', function(){ if(scrolling){ clearTimeout(timer); timer = setTimeout(settle, 120); } }, {passive:true});
+window.addEventListener('resize', function(){ if(cur >= 0) car.scrollLeft = cur * slideW(); });
+function build(list){
+  CHARS = list.filter(function(c){ return c && c.name && c.portrait && c.page; });
+  CHARS.forEach(function(c, i){
+    var s = document.createElement('div'); s.className = 'slide';
+    var im = document.createElement('img'); im.src = c.portrait; im.alt = c.name; im.draggable = false;
+    if(i > 1) im.loading = 'lazy';
+    s.appendChild(im); car.appendChild(s);
+  });
+  if(CHARS.length) render(0); else document.getElementById('open').textContent = 'No characters';
+}
+fetch('characters.json', {cache: 'no-store'}).then(function(r){ return r.json(); }).then(build)
+  .catch(function(){ document.getElementById('open').textContent = 'Could not load characters'; });
+</script>
+</body></html>
