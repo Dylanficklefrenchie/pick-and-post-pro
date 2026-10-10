@@ -19,7 +19,7 @@
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0 auto;max-width:520px;padding:12px 16px 16px;background:var(--cream);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.3;overflow-x:hidden}
+body{margin:0 auto;max-width:520px;padding:12px 12px 16px;background:var(--cream);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.3;overflow-x:hidden}
 img{display:block;max-width:100%}
 p{margin:0}
 /* display type (Cinzel is capitals-only: mixed case gives large + small capitals) */
@@ -45,7 +45,7 @@ p{margin:0}
 /* round gold-outlined arrows */
 .round{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--gold);background:var(--ivory);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;flex:0 0 auto}
 .round svg{width:14px;height:14px;stroke:var(--ink);fill:none;stroke-width:2.2}
-.round:disabled{opacity:.35}
+.round:disabled{opacity:.45}
 /* cards */
 .card{position:relative;background:var(--ivory);border:1.5px solid var(--gold);border-radius:var(--radius-card);padding:16px 14px 12px;box-shadow:inset 0 0 0 3px var(--ivory),inset 0 0 0 4px rgba(217,195,142,.55)}
 .card .topfleur{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--cream);padding:0 6px;line-height:0}

@@ -9,9 +9,9 @@
 <style>
 body{padding-top:10px;padding-bottom:12px}
 #bar{display:flex;align-items:center;gap:10px;margin:0 0 6px}
-#bar img{width:56px;height:56px;border-radius:12px;border:1.5px solid var(--gold);box-shadow:0 2px 5px rgba(48,43,37,.28);flex:0 0 auto}
+#bar img{width:60px;height:60px;border-radius:12px;border:1.5px solid var(--gold);box-shadow:0 2px 5px rgba(48,43,37,.28);flex:0 0 auto}
 #bar .t{flex:1;min-width:0;overflow:hidden;text-align:center}
-#bar .t1{font-size:29px}
+#bar .t1{font-size:31px}
 #bar .t2{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.03em;color:var(--crimson);margin:1px 0 0;line-height:1.05}
 #bar .sep{width:1px;height:40px;background:var(--gold);opacity:.75;flex:0 0 auto}
 #gear{background:none;border:0;padding:6px;margin:-6px -6px -6px 0;cursor:pointer;line-height:0;flex:0 0 auto}
@@ -95,7 +95,7 @@ car.addEventListener('touchend', function(){ if(scrolling){ clearTimeout(timer);
 /* size the portrait so the Choose button is visible without scrolling (works down to a 390x664 Safari viewport) */
 function fitText(e, max, min){ var s = max; e.style.fontSize = s + 'px'; while(e.scrollWidth > e.clientWidth && s > min){ s--; e.style.fontSize = s + 'px'; } }
 function fit(){
-  fitText($('t1'), 29, 18); if(cur >= 0) fitText($('nm'), 36, 20); $('open').style.fontSize = ''; fitText($('open'), 21, 14);
+  fitText($('t1'), 31, 18); if(cur >= 0) fitText($('nm'), 36, 20); $('open').style.fontSize = ''; fitText($('open'), 21, 14);
   frame.style.width = '100%';
   var full = frame.clientWidth, h = window.innerHeight, others = document.body.scrollHeight - frame.offsetHeight;
   var avail = h - others - 2;            /* height left for the framed portrait */
