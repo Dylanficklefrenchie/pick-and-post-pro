@@ -1,0 +1,8 @@
+[
+ {"name": "Sir Winston", "title": "The Guardian", "portrait": "../../pages/winston/img/ref14.jpg", "page": "../pages/winston/"},
+ {"name": "Princess Poppy", "title": "The Indulgent", "portrait": "../../pages/poppy/img/poppy01.jpg", "page": "../pages/poppy/"},
+ {"name": "Baron Zorro", "title": "The Rebel", "portrait": "../../pages/zorro/img/zorro01.jpg", "page": "../pages/zorro/"},
+ {"name": "Countess Penelope", "title": "The Sovereign", "portrait": "../../pages/penelope/img/penelope01.jpg", "page": "../pages/penelope/"},
+ {"name": "Marquess Reginald", "title": "The Majesty", "portrait": "../../pages/reginald/img/reginald01.jpg", "page": "../pages/reginald/"},
+ {"name": "The Wheelie Roast", "portrait": "../../pages/wheelie/img/wheelie01.jpg", "page": "../pages/wheelie/"}
+]

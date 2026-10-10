@@ -1,0 +1,23 @@
+/* AFFILIATE MODE additions on the character pages (preview). Theme v3 tokens come from pages/theme-pages.css. Nothing is placed on the photos. */
+details{display:none!important}   /* debug log hidden in affiliate mode */
+.ppa-back{display:inline-flex;align-items:center;gap:6px;margin:0 0 6px;font-family:var(--body);font-size:16px;font-weight:600;color:var(--crimson);text-decoration:none;padding:4px 10px 4px 8px;border:1.5px solid var(--gold);border-radius:999px;background:var(--ivory)}
+.ppa-back span{font-size:20px;line-height:1;color:var(--gold-dark)}
+.ppa-card{background:var(--ivory);border:1.5px solid var(--gold);border-radius:14px;padding:12px 12px 10px;margin:14px 0 0;box-shadow:inset 0 0 0 3px var(--ivory),inset 0 0 0 4px rgba(217,195,142,.55);text-align:center}
+.ppa-card.ppa-attn{border-color:var(--crimson);box-shadow:0 0 0 3px rgba(143,17,39,.15)}
+.ppa-h{font-family:var(--display);font-weight:700;font-size:17px;color:var(--crimson);margin:0 0 4px}
+.ppa-note{font-size:15px;color:var(--text);margin:0 0 8px;line-height:1.3}
+.ppa-note b{color:var(--ink)}
+.ppa-link{font-size:15px;color:var(--ink);word-break:break-all;margin:0 0 8px}
+.ppa-prompt{font-size:15px;color:var(--text);margin:0 0 8px;line-height:1.3}
+.ppa-input{width:100%;box-sizing:border-box;font-family:var(--body);font-size:16px;color:var(--text);padding:9px 11px;border:1px solid #D2C6AF;border-radius:9px;background:#fff;margin:0 0 8px}
+.ppa-input::placeholder{font-size:14px;color:#6f665b}
+.ppa-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(184,145,58,.25)}
+.ppa-input.bad{border:2px solid var(--crimson)}
+.ppa-btn{display:block;width:100%;padding:11px 14px;border:1.5px solid var(--gold);border-radius:10px;background-color:var(--crimson);
+  background-image:linear-gradient(180deg,var(--crimson-light) 0%,var(--crimson) 45%,var(--crimson) 60%,var(--crimson-dark) 100%);color:#FFFFFF;
+  font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:.02em;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.2),0 2px 4px rgba(48,43,37,.2);-webkit-tap-highlight-color:transparent}
+.ppa-btn:active{background-image:none;background-color:var(--crimson-dark)}
+.ppa-tip{font-size:14px;color:var(--muted);margin:7px 0 0;line-height:1.3}
+.ppa-msg{font-size:15px;color:var(--text);margin:6px 0 0}
+.ppa-msg:empty{display:none}
+.ppa-msg.err{color:var(--crimson)}
