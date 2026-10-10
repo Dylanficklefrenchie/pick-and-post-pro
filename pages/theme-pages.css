@@ -6,6 +6,7 @@
 @font-face{font-family:'Cinzel';font-style:normal;font-weight:900;font-display:swap;src:url(../fonts/cinzel-latin-900-normal.woff2) format('woff2')}
 @font-face{font-family:'EB Garamond';font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/eb-garamond-latin-400-normal.woff2) format('woff2')}
 @font-face{font-family:'EB Garamond';font-style:italic;font-weight:400;font-display:swap;src:url(../fonts/eb-garamond-latin-400-italic.woff2) format('woff2')}
+@font-face{font-family:'EB Garamond';font-style:italic;font-weight:500;font-display:swap;src:url(../fonts/eb-garamond-latin-500-italic.woff2) format('woff2')}
 @font-face{font-family:'EB Garamond';font-style:normal;font-weight:500;font-display:swap;src:url(../fonts/eb-garamond-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'EB Garamond';font-style:normal;font-weight:600;font-display:swap;src:url(../fonts/eb-garamond-latin-600-normal.woff2) format('woff2')}
 :root{--cream:#FAF5EA;--ivory:#FFFDF8;--crimson:#8F1127;--crimson-light:#A3192F;--crimson-dark:#740B1D;--gold:#B8913A;--gold-dark:#8C6A22;--gold-soft:#D9C38E;
@@ -21,7 +22,8 @@ h1{font-family:var(--display);font-weight:900;color:var(--ink);letter-spacing:-.
 button.sm{background:var(--ivory);border:1.5px solid var(--gold);color:var(--ink);font-family:var(--body);font-weight:600}
 #nav button.sm{border-radius:999px;color:var(--ink)}
 #nav button.sm:disabled{opacity:.45}
-#count{color:var(--text);font-style:italic}
+#count{color:var(--ink);font-style:normal;font-size:15px;white-space:nowrap}  /* 'N of M ·' counter: 15px near-black, like the picker */
+#count i{font-style:italic;font-weight:500;font-size:1.167em;color:var(--crimson)}  /* 'Swipe for more' = picker swipe hint: crimson, EB Garamond italic 500, 17.5px (Dylan 11:18 AM) */
 /* "Choose your quote" heading: Cinzel bold, dark gold */
 #title{font-family:var(--display);font-weight:700;color:var(--gold-dark);letter-spacing:.02em}
 /* caption choices: plain text on ivory cards with a soft gold border; selected = crimson border (was pink) */

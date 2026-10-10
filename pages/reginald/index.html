@@ -396,7 +396,7 @@ function settle(i, src){
 /* ---------- render title / captions for an index ---------- */
 function render(i){
   var r = RECORDS[i], s = loadState(r.id);
-  document.getElementById('count').textContent = (i+1)+' of '+RECORDS.length+' · Swipe for more';
+  var cnt = document.getElementById('count'); cnt.textContent = (i+1)+' of '+RECORDS.length+' · '; var sw = document.createElement('i'); sw.textContent = 'Swipe for more'; cnt.appendChild(sw);  /* Dylan 10 Oct 11:18 AM: hint styled crimson/larger (theme-pages.css); text unchanged */
   document.getElementById('prev').disabled = (i===0);
   document.getElementById('next').disabled = (i===RECORDS.length-1);
   document.getElementById('title').textContent = 'Choose your quote';  /* Dylan 2026-10-09 9:28 PM: no visible image number; r.num/ids still used internally */
