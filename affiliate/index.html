@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>PICK &amp; POST PRO — Welcome</title>
+<style>
+/* same base styles as the picker / LIFE QUOTES pages */
+body{font-family:-apple-system,system-ui,sans-serif;margin:0;padding:16px;background:#faf7f2;color:#222;max-width:520px;margin:auto}
+h1{font-size:18px;margin:4px 0 12px}
+.big{display:block;width:100%;padding:20px;font-size:20px;font-weight:700;border:0;border-radius:12px;background:#c13584;color:#fff;margin:14px 0}
+a.big{text-align:center;text-decoration:none;box-sizing:border-box}
+button.sm{padding:10px 14px;font-size:16px;border-radius:8px;border:1px solid #888;background:#fff;margin:6px 6px 6px 0}
+#sub{font-size:13px;color:#555;margin:-8px 0 12px}
+/* welcome page additions (minimal) */
+#top{margin:4px 0 0}
+#top img{width:96px;height:96px;border-radius:22px;display:block;box-shadow:0 1px 4px rgba(0,0,0,.15);margin:0 0 12px}
+#welcome{font-size:20px;font-weight:700;line-height:1.3;margin:0 0 16px}
+.card{background:#fff;border:1px solid #ddd;border-radius:8px;padding:14px;margin:0 0 14px}
+.card h2{font-size:16px;font-weight:700;margin:0 0 10px}
+details.card summary{font-size:16px;font-weight:700;cursor:pointer}
+details.card[open] summary{margin-bottom:10px}
+ol#steps{margin:0;padding-left:22px;font-size:15px;line-height:1.4}
+ol#steps li{margin:0 0 8px}
+ol#steps li:last-child{margin-bottom:0}
+#refLink{width:100%;box-sizing:border-box;font-size:16px;padding:10px;border:1px solid #ddd;border-radius:8px}
+#refLink.bad{border:2px solid #8F1127}
+#refMsg{font-size:14px;color:#555;margin:6px 0 0;min-height:1em}
+#refMsg.err{color:#8F1127}
+#refSaved{font-size:15px;line-height:1.35;word-break:break-all}
+#refSaved .ok{display:block;font-weight:700;margin:0 0 4px}
+#emptyNote{font-size:14px;color:#555;margin:-6px 0 0;text-align:center}
+#reset{display:block;text-align:center;font-size:13px;color:#555;margin:22px 0 10px}
+.hide{display:none}
+</style><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png"><meta name="apple-mobile-web-app-title" content="Pick &amp; Post Pro"></head><body>
+<div id="top"><img src="../icons/icon-192.png" alt="Pick &amp; Post Pro app icon"><h1>PICK &amp; POST PRO<br><span style="white-space:nowrap;color:#8F1127">LIFE QUOTES - FRENCHIE STYLE</span></h1></div>
+<p id="sub">Preview (not live)</p>
+<p id="welcome">Share the Frenchies. Grow your sales.</p>
+
+<details class="card" id="how" open>
+<summary>How it works</summary>
+<ol id="steps">
+<li>Pick your Frenchie and an image.</li>
+<li>Choose a caption, or write your own.</li>
+<li>Post: tap the button and your image and caption are ready for Instagram.</li>
+</ol>
+</details>
+
+<div class="card" id="setup">
+<h2>One-time setup: Save your referral link</h2>
+<div id="refEdit">
+<input id="refLink" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://ficklefrenchiecoffeeclub.com/?ref=YOURCODE" aria-label="Your referral link">
+<button class="sm" id="refSave">Save</button>
+<p id="refMsg" role="status"></p>
+</div>
+<div id="refShow" class="hide">
+<div id="refSaved"><span class="ok">Saved ✓</span><span id="refText"></span></div>
+<button class="sm" id="refEditBtn">Edit</button>
+</div>
+</div>
+
+<a class="big" id="start" href="../">Start</a>
+<p id="emptyNote" class="hide">No referral link saved yet. You can add it any time.</p>
+
+<a href="#" id="reset">Preview as a new affiliate</a>
+
+<script>
+var KEY_LINK = 'ppp_referral_link', KEY_SEEN = 'ppp_welcome_seen';
+function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function set(k, v){ try{ localStorage.setItem(k, v); return true; }catch(e){ return false; } }
+function del(k){ try{ localStorage.removeItem(k); }catch(e){} }
+var $ = function(id){ return document.getElementById(id); };
+function valid(u){ return /^https?:\/\/\S+$/i.test(u); }
+function show(){
+  var link = get(KEY_LINK);
+  $('refEdit').classList.toggle('hide', !!link);
+  $('refShow').classList.toggle('hide', !link);
+  $('refText').textContent = link || '';
+  $('emptyNote').classList.toggle('hide', !!link);
+}
+$('refSave').addEventListener('click', function(){
+  var u = $('refLink').value.trim(), m = $('refMsg');
+  if(!valid(u)){ $('refLink').classList.add('bad'); m.className = 'err'; m.textContent = 'Please paste your full link, starting with http'; return; }
+  $('refLink').classList.remove('bad'); m.className = ''; m.textContent = '';
+  if(!set(KEY_LINK, u)){ m.className = 'err'; m.textContent = 'Could not save on this device'; return; }
+  show();
+});
+$('refLink').addEventListener('input', function(){ $('refLink').classList.remove('bad'); $('refMsg').textContent = ''; });
+$('refEditBtn').addEventListener('click', function(){ $('refLink').value = get(KEY_LINK) || ''; $('refEdit').classList.remove('hide'); $('refShow').classList.add('hide'); $('refLink').focus(); });
+$('reset').addEventListener('click', function(e){ e.preventDefault(); del(KEY_LINK); del(KEY_SEEN); location.reload(); });
+/* first visit: full page with "How it works" open; later visits: same page, steps folded away (tap to open) */
+var firstVisit = !get(KEY_SEEN);
+$('how').open = firstVisit;
+document.body.setAttribute('data-first-visit', firstVisit ? '1' : '0');
+set(KEY_SEEN, new Date().toISOString());
+show();
+</script>
+</body></html>
