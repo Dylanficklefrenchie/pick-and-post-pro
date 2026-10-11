@@ -123,4 +123,4 @@ if(autoMsg === 'bad'){ $('refMsg').className = 'msg err'; $('refMsg').textConten
 function fitWord(){ var e = $('brand'), s = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--brand-max')) || 50; e.style.fontSize = s + 'px'; while(e.scrollWidth > e.clientWidth && s > 24){ s--; e.style.fontSize = s + 'px'; } }
 fitWord(); window.addEventListener('resize', fitWord); if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitWord);
 </script>
-</body></html>
+<script src="../a2hs.js" defer></script></body></html>

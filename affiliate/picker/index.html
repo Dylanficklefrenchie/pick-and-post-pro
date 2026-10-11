@@ -144,4 +144,4 @@ $('pTip').textContent = PPP.config.copyLinkTip;
 $('pCopy').addEventListener('click', function(){ var l = PPP.getLink(), m = $('pCopyMsg'); if(!l) return; PPP.copyText(l).then(function(){ m.className = 'msg'; m.textContent = 'Link copied \u2713'; }, function(){ m.className = 'msg err'; m.textContent = 'Could not copy \u2014 press and hold the link to copy it.'; }); });
 $('pEditBtn').addEventListener('click', function(){ $('pCopyMsg').textContent = ''; $('pLink').value = PPP.getLink() || ''; $('pEdit').classList.remove('hide'); $('pShow').classList.add('hide'); fit(); $('pLink').focus(); });
 </script>
-</body></html>
+<script src="../../a2hs.js" defer></script></body></html>
