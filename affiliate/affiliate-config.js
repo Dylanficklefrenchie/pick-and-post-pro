@@ -8,19 +8,20 @@ window.PPP_AFFILIATE_CONFIG = {
   /* Caption in affiliate mode = disclosure + disclosureSeparator + (picture line + line break + closer, unchanged) + footerSeparator + footer */
   disclosure: '#ad',                                    // APPROVED Dylan 1:00 PM Oct 10: first line of every affiliate caption
   disclosureSeparator: '\n',                            // line break after the disclosure
-  footer: 'Shop the Royal Court \u2615 link in my bio', // APPROVED Dylan 1:00 PM Oct 10: Instagram caption links are not clickable, so the link stays out of the feed caption
+  footer: 'Shop the Royal Court \u2615 link in my bio @theficklefrenchie', // APPROVED Dylan 1:00 PM Oct 10: Instagram caption links are not clickable, so the link stays out of the feed caption
+  /* @theficklefrenchie Instagram mention added to every affiliate footer: APPROVED Dylan 11 Oct 2026 2:21 PM ET (affiliate mode only; brand captions unchanged) */
   footerSeparator: '\n\n',                              // blank line between the closer and the footer
 
   /* Toggle: true = put the raw referral URL in the caption footer instead (uses footerWithLink, {link} = the saved link) */
   footerIncludeLink: false,
-  footerWithLink: 'Shop the Royal Court \u2615 {link}', // APPROVED Dylan 1:00 PM Oct 10, only used when footerIncludeLink is true
+  footerWithLink: 'Shop the Royal Court \u2615 {link} @theficklefrenchie', // APPROVED Dylan 1:00 PM Oct 10, only used when footerIncludeLink is true
 
   /* Per-character overrides (key = folder name under pages/) */
   characters: {
     wheelie: {
       showInPicker: false,   // The Wheelie Roast pays 0% commission: hidden from the affiliate picker by default. Set true to show it.
-      footer: 'The Wheelie Roast \u2615 link in my bio (no commission on this blend)',  // APPROVED Dylan 1:00 PM Oct 10 no-commission footer, used if shown
-      footerWithLink: 'The Wheelie Roast \u2615 {link} (no commission on this blend)'   // APPROVED Dylan 1:00 PM Oct 10, only with footerIncludeLink
+      footer: 'The Wheelie Roast \u2615 link in my bio @theficklefrenchie (no commission on this blend)',  // APPROVED Dylan 1:00 PM Oct 10 no-commission footer, used if shown
+      footerWithLink: 'The Wheelie Roast \u2615 {link} @theficklefrenchie (no commission on this blend)'   // APPROVED Dylan 1:00 PM Oct 10, only with footerIncludeLink
     }
   },
 
