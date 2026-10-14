@@ -1,0 +1,17 @@
+/* Tales From Bellamere Court — uses theme.css variables only */
+.ep-back{display:inline-block;font-size:15px;color:var(--muted);text-decoration:none;margin:0 0 6px}
+.ep-head{text-align:center;margin:2px 0 4px}
+.ep-series{font-size:27px;white-space:normal;line-height:1.1}
+.ep-sub{font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-dark);margin:4px 0 0}
+.ep-note{text-align:center;font-size:15px;color:var(--crimson);margin:8px 0 10px;font-weight:600}
+.ep-aff{font-size:14px;color:var(--text);background:var(--ivory);border:1px dashed var(--gold);border-radius:10px;padding:8px 10px;margin:0 0 10px}
+.ep-aff a{color:var(--crimson)}
+.ep-card{margin:0 0 16px}
+.ep-num{font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-dark);text-align:center}
+.ep-title{font-size:28px;text-align:center;margin:2px 0 8px}
+.ep-video{width:100%;aspect-ratio:9/16;max-height:62vh;background:#000;border-radius:9px;display:block;margin:0 auto;object-fit:contain}
+.ep-row{display:flex;gap:8px;margin:10px 0 0}
+.ep-cap{border-top:1px solid rgba(184,145,58,.45);margin:12px 0 0;padding:10px 0 0}
+.ep-cap h3{font-family:var(--display);font-size:16px;margin:0 0 5px;color:var(--ink)}
+.ep-cap h3 small{font-family:var(--body);font-size:12px;color:var(--crimson);font-weight:700;margin-left:6px;letter-spacing:.04em}
+.ep-cap pre{white-space:pre-wrap;word-wrap:break-word;font-family:var(--body);font-size:14.5px;line-height:1.4;margin:0 0 8px;color:var(--text);background:var(--cream);border-radius:8px;padding:8px 10px;max-height:9.5em;overflow:auto}
