@@ -5,7 +5,9 @@
   var $ = function(id){ return document.getElementById(id); };
   var P = window.PPP || null;                    /* present only in affiliate mode (affiliate-core.js) */
   function esc(s){ var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-  function finalCaption(text){ return P ? P.caption('episodes', text, P.getLink()) : text; }   /* affiliate: existing #ad + footer rule */
+  /* Instagram allows 5 hashtags. Captions carry 5 (biggest first); affiliates' #ad counts as one, so they keep the first 4. */
+  function limitTags(text, max){ var n = 0; return text.replace(/[ \t]*#[A-Za-z]\w*/g, function(t){ return ++n > max ? '' : t; }); }
+  function finalCaption(text){ return P ? P.caption('episodes', limitTags(text, 4), P.getLink()) : limitTags(text, 5); }   /* affiliate: existing #ad + footer rule */
   function copy(text){
     if(P) return P.copyText(text);
     if(navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
@@ -69,7 +71,7 @@
     });
     return c;
   }
-  fetch('episodes.json', {cache: 'no-store'}).then(function(r){ return r.json(); }).then(function(list){
+  fetch('../episodes-preview/episodes.json', {cache: 'no-store'}).then(function(r){ return r.json(); }).then(function(list){
     var box = $('epList'); box.innerHTML = '';
     list.slice().sort(function(a, b){ return b.number - a.number; }).forEach(function(ep){ box.appendChild(card(ep)); });   /* newest first */
   }).catch(function(){ $('epList').innerHTML = '<p class="msg err">Could not load episodes.</p>'; });
