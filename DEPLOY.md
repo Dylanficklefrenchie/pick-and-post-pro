@@ -35,6 +35,7 @@ Sources copied:
 ## Tales From Bellamere Court (episode series) — STAGED 14 Oct 2026, not live until Dylan approves
 - `/episodes/` (brand) and `/affiliate/episodes/` (affiliate, generated: same page + `<base>` + affiliate-config/core, so captions get `#ad` + the same footer) ← `/workspace/pickpost-episodes/site/`
 - Add an episode: put the .mp4 (unaltered) and a cover .jpg in `site/media/`, append one entry to `site/episodes.json` (`number`, `title`, `video`, `cover`, `captions` [{`label`, `main`, `text`}]), run the script. The build checks the video is byte-identical (sha256).
+- 14 Oct 2026 (Dylan approved): episode page has a one-tap POST THIS VIDEO button (loads the video, copies Caption 1, opens the phone share sheet like the image pages; falls back to a normal download). Captions capped at Instagram's 5 hashtags; affiliates get #ad + the first 4 (`limitTags` in episodes.js). Edited directly in this repo — the /workspace sources are out of date, do not run redeploy.sh over it.
 - Both pickers show one "📖 Tales From Bellamere Court ›" link under the Choose button.
 
 ## Add a character

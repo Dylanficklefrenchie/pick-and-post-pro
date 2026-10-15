@@ -5,7 +5,9 @@
   var $ = function(id){ return document.getElementById(id); };
   var P = window.PPP || null;                    /* present only in affiliate mode (affiliate-core.js) */
   function esc(s){ var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-  function finalCaption(text){ return P ? P.caption('episodes', text, P.getLink()) : text; }   /* affiliate: existing #ad + footer rule */
+  /* Instagram allows 5 hashtags. Captions carry 5 (biggest first); affiliates' #ad counts as one, so they keep the first 4. */
+  function limitTags(text, max){ var n = 0; return text.replace(/[ \t]*#[A-Za-z]\w*/g, function(t){ return ++n > max ? '' : t; }); }
+  function finalCaption(text){ return P ? P.caption('episodes', limitTags(text, 4), P.getLink()) : limitTags(text, 5); }   /* affiliate: existing #ad + footer rule */
   function copy(text){
     if(P) return P.copyText(text);
     if(navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
@@ -24,7 +26,9 @@
     var file = ep.video.split('/').pop();
     var h = '<p class="ep-num">Episode ' + ep.number + '</p><p class="name ep-title">' + esc(ep.title) + '</p>' +
       '<video class="ep-video" controls playsinline preload="none" poster="' + esc(ep.cover) + '" src="' + esc(ep.video) + '"></video>' +
-      '<div class="ep-row"><a class="btn small" href="' + esc(ep.video) + '" download="' + esc(file) + '" type="video/mp4">Save video</a></div>';
+      '<button type="button" class="btn ep-post off" disabled>Preparing video…</button>' +
+      '<p class="msg ep-post-msg" role="status"></p>' +
+      '<p class="ep-alt"><a href="' + esc(ep.video) + '" download="' + esc(file) + '" type="video/mp4">Trouble? Download the video file instead</a></p>';
     var caps = ep.captions.slice().sort(function(x, y){ return (y.main ? 1 : 0) - (x.main ? 1 : 0); });
     caps.forEach(function(cp, i){
       h += '<div class="ep-cap"><h3>Caption ' + (i + 1) + ' · ' + esc(cp.label) + (cp.main ? '<small>MAIN</small>' : '') + '</h3>' +
@@ -37,6 +41,33 @@
         copy(t).then(function(){ m.classList.remove('err'); m.textContent = 'Caption copied ✓ Paste it into your Reel.'; },
                      function(){ m.classList.add('err'); m.textContent = 'Could not copy — press and hold the caption to copy it.'; });
       });
+    });
+    /* ONE-TAP POST: the video is loaded in the background first (phones only open the share sheet straight from a tap),
+       then one tap copies the MAIN caption and opens the share sheet with the video (Instagram, Facebook, Save Video…).
+       Same mechanics as the character image pages. Fallback: normal file download. */
+    var post = c.querySelector('.ep-post'), pm = c.querySelector('.ep-post-msg'), alt = c.querySelector('.ep-alt a');
+    var vfile = null;
+    function ready(){ post.disabled = false; post.classList.remove('off'); post.textContent = 'POST THIS VIDEO'; }
+    fetch(ep.video).then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.blob(); })
+      .then(function(b){ vfile = new File([b], file, {type: 'video/mp4'}); ready(); },
+            function(){ ready(); });   /* still usable: falls back to download */
+    post.addEventListener('click', function(){
+      var cap = finalCaption(caps[0].text);
+      var copyP = copy(cap);
+      var canShare = vfile && navigator.share && navigator.canShare && navigator.canShare({files: [vfile]});
+      if(canShare){
+        var shareP; try{ shareP = navigator.share({files: [vfile]}); }catch(e){ shareP = Promise.reject(e); }
+        copyP.then(function(){ pm.classList.remove('err'); pm.textContent = 'Caption 1 copied ✓ Choose Instagram (or Save Video), then paste the caption.'; },
+                   function(){ pm.classList.add('err'); pm.textContent = 'Choose Instagram (or Save Video). Copy Caption 1 below, then paste it.'; });
+        shareP.then(function(){}, function(e){
+          if(e && e.name === 'AbortError'){ pm.classList.remove('err'); pm.textContent = 'Closed without posting. Tap POST THIS VIDEO to try again.'; }
+          else { pm.classList.add('err'); pm.textContent = 'Sharing didn’t open. Tap “Download the video file” below instead.'; }
+        });
+      } else {
+        alt.click();   /* computers / older phones: plain download */
+        copyP.then(function(){ pm.classList.remove('err'); pm.textContent = 'Video downloading. Caption 1 copied ✓'; },
+                   function(){ pm.classList.remove('err'); pm.textContent = 'Video downloading. Copy Caption 1 below.'; });
+      }
     });
     return c;
   }
